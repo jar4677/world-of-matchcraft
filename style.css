@@ -101,7 +101,15 @@ h1.win {
 .front, .back {
     width: 100%;
     position: absolute;
+    backface-visibility: hidden;
+    transition-duration: 1s;
 }
+
+.down {
+    transform: rotateY(180deg);
+}
+
+
 
 .card img {
     width: 100%;
@@ -111,13 +119,13 @@ h1.win {
     box-sizing: border-box;
 }
 
-.card:hover {
-    transform: scale(1.025);
-}
+/*.card:hover {*/
+    /*transform: scale(1.025);*/
+/*}*/
 
-.card:active img{
-    box-shadow: 2px 2px 2px black;
-}
+/*.card:active img{*/
+    /*box-shadow: 2px 2px 2px black;*/
+/*}*/
 
 /*Score Board Area*/
 .score-board{
