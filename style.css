@@ -1,0 +1,214 @@
+/*Basic Setup*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: lightgrey;
+    font-family: serif;
+}
+
+.wrapper {
+    width: 1200px;
+    margin: auto;
+}
+
+/*Header and Elements*/
+#header {
+    width: 100%;
+    height: 160px;
+    position: relative;
+}
+
+.logo {
+    position: absolute;
+    display: inline-block;
+    height: 301px;
+    top: -11px;
+    left: -61px;
+    transform: rotateZ(-5deg);
+}
+
+#title {
+    position: relative;
+    display: inline-block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 90px;
+}
+
+.links {
+    display: inline-block;
+    float: right;
+    text-align: right;
+    font-size: 30px;
+}
+
+.links li {
+    list-style-type: none;
+    margin: 30px 55px;
+}
+
+.links a {
+    text-decoration: none;
+    color: lightgrey;
+}
+
+.links li:hover a {
+    color: gold;
+}
+
+/*Main Body Area*/
+main {
+    width: 96%;
+    margin: auto;
+}
+
+/*Game Board Area*/
+.game-area {
+    width: 1002px;
+    height: 668px;
+    margin: 20px auto;
+    background-image: url("images/game-board-2.jpg");
+    border: 4px outset darkgrey;
+    box-shadow: 4px 4px 20px 6px black;
+    box-sizing: border-box;
+}
+
+h1.win {
+    display: inline-block;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateZ(15deg);
+    font-size: 140px;
+}
+
+/*Cards*/
+.card {
+    float: left;
+    width: 134px;
+    height: 189px;
+    margin: 16px 15px;
+    position: relative;
+}
+
+.front, .back {
+    width: 100%;
+    position: absolute;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 4px 4px 4px black;
+    border: 3px outset #636262;
+    box-sizing: border-box;
+}
+
+.card:hover {
+    transform: scale(1.025);
+}
+
+.card:active img{
+    box-shadow: 2px 2px 2px black;
+}
+
+/*Score Board Area*/
+.score-board{
+    clear: both;
+    width: 1002px;
+    height: 80px;
+    margin: auto;
+    box-sizing: border-box;
+    padding-top: 10px;
+}
+
+.sb-section {
+    width: 25%;
+    float: left;
+    text-align: center;
+    box-sizing: border-box;
+    font-size: 25px;
+}
+
+.reset {
+    cursor: pointer;
+}
+
+/*About Page*/
+.container {
+    width: 1800px;
+    margin: auto;
+}
+
+.container #header{
+    width: 1200px;
+    margin: auto;
+}
+
+#description {
+    text-align: center;
+}
+
+#description p {
+    font-size: 26px;
+}
+
+#line-up li{
+    list-style-type: none;
+}
+
+#line-up figure{
+    width: 430px;
+    float: left;
+    margin: 30px 73px;
+    text-align: center;
+}
+
+#line-up .front{
+    position: static;
+    margin-bottom: 15px;
+    /*box-shadow: 6px 6px 6px black;*/
+}
+
+#line-up figcaption {
+    font-size: 26px;
+}
+
+#line-up figure:hover {
+    transform: scale(1.025);
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+}
+
+footer figure {
+    display: inline-block;
+    width: 200px;
+}
+
+footer img {
+    width: 100%;
+    border: 4px outset grey;
+    box-sizing: border-box;
+    box-shadow: 6px 6px 6px black;
+}
+
+footer figcaption {
+    font-size: 24px;
+    margin: 10px;
+    text-align: center;
+}
+
+footer a{
+    text-decoration: none;
+    color: lightgrey;
+}
