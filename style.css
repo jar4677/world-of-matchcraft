@@ -94,8 +94,13 @@ h1.win {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotateZ(15deg);
-    font-size: 140px;
+    transform: translate(-50%, -100%) rotateZ(16deg);
+    font-size: 150px;
+    border: 9px outset #2D1805;
+    background-image: url("images/victory-box.jpg");
+    padding: 40px;
+    box-shadow: 7px 7px 25px 10px black;
+    color: #6B0D0D;
 }
 
 .victory {

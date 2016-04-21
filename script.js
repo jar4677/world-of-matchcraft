@@ -9,12 +9,12 @@ $(document).ready(function () {
     firstCardClicked = null;
     secondCardClicked = null;
     totalPossibleMatches = $('.card').length / 2;
-    matchCounter = 0;
     matches = 0;
     attempts = 0;
     accuracy = 0;
     gamesPlayed = 0;
-    
+
+    console.log('total possible matches: ' + totalPossibleMatches);
 //GAME PLAY FUNCTIONALITY
     
     //function to flip card
@@ -36,13 +36,15 @@ $(document).ready(function () {
                 attempts++;
                 $("#attempts").text(attempts);
                 if ($(firstCardClicked).html() == $(secondCardClicked).html()) {
-                    matchCounter++;
                     matches++;
+
+                    console.log('matches: ' + matches);
+
                     firstCardClicked = null;
                     secondCardClicked = null;
-                    if (matchCounter == totalPossibleMatches) {
+                    if (matches == totalPossibleMatches) {
                         setTimeout(function () {
-                            $("#victory").toggleClass('victory');
+                            $("#victory").addClass('victory');
                         }, 750);
                         gamesPlayed += 1;
                     }
@@ -83,5 +85,13 @@ $(document).ready(function () {
     
     $("#reset").click(function () {
         resetStats();
+
+        $(".card").each(function () {
+            if ($(this).children(".back").hasClass("down")){
+                flipCard(this);
+            }
+        })
+
+        $("#victory").removeClass('victory');
     })
 });
