@@ -35,6 +35,7 @@ $(document).ready(function () {
                         $("#victory").toggleClass('victory');
                     }
                 } else {
+                    $(firstCardClicked, secondCardClicked).children("div").toggleClass('delay');
                     flipCard(firstCardClicked);
                     flipCard(secondCardClicked);
                     firstCardClicked = null;

@@ -122,7 +122,9 @@ h1.win {
     transform: rotateY(180deg);
 }
 
-
+.delay {
+    transition-delay: 2000ms;
+}
 
 .card img {
     width: 100%;
@@ -132,7 +134,7 @@ h1.win {
     box-sizing: border-box;
 }
 
-/*.card:hover {*/
+/*.card img:hover {*/
     /*transform: scale(1.025);*/
 /*}*/
 
