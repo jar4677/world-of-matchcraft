@@ -2,22 +2,22 @@
  * Created by jar4677 on 4/20/16.
  */
 
-//declare global variables
-var firstCardClicked = null;
-var secondCardClicked = null;
-var totalPossibleMatches = 2;
-var matchCounter = 0;
-
 //initializing jQuery
 $(document).ready(function () {
 
+    //declare global variables
+    firstCardClicked = null;
+    secondCardClicked = null;
+    totalPossibleMatches = $('.card').length / 2;
+    matchCounter = 0;
+    
     //function to flip card
     function flipCard(x) {
         $(x).children("div").toggleClass('down');
     }
 
+    //function for when a card is clicked
     function cardClicked() {
-
         //checks to see if card is already face down. prevents re-flipping cards
         if ($(this).children(".front").hasClass('down') && secondCardClicked == null) {
 
@@ -47,7 +47,8 @@ $(document).ready(function () {
             }
         }
     }
-
+    
+    //delegated handler
     $("#game-area").on('click', ".card", cardClicked);
 
 });
