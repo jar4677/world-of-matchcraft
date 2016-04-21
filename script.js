@@ -11,15 +11,15 @@ var matchCounter = 0;
 //initializing jQuery
 $(document).ready(function () {
 
+    //function to flip card
+    function flipCard(x) {
+        $(x).children("div").toggleClass('down');
+    }
+
     function cardClicked() {
 
-        //function to flip card
-        function flipCard(x) {
-            $(x).children("div").toggleClass('down');
-        }
-
         //checks to see if card is already face down. prevents re-flipping cards
-        if ($(this).children(".front").hasClass('down')) {
+        if ($(this).children(".front").hasClass('down') && secondCardClicked == null) {
 
             flipCard(this);
 
@@ -32,14 +32,17 @@ $(document).ready(function () {
                     firstCardClicked = null;
                     secondCardClicked = null;
                     if (matchCounter == totalPossibleMatches) {
-                        $("#victory").toggleClass('victory');
+                        setTimeout(function () {
+                            $("#victory").toggleClass('victory');
+                        }, 750);
                     }
                 } else {
-                    $(firstCardClicked, secondCardClicked).children("div").toggleClass('delay');
-                    flipCard(firstCardClicked);
-                    flipCard(secondCardClicked);
-                    firstCardClicked = null;
-                    secondCardClicked = null;
+                    setTimeout(function () {
+                        flipCard(firstCardClicked);
+                        flipCard(secondCardClicked);
+                        firstCardClicked = null;
+                        secondCardClicked = null;
+                    }, 2000);
                 }
             }
         }

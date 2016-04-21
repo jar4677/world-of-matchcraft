@@ -122,10 +122,6 @@ h1.win {
     transform: rotateY(180deg);
 }
 
-.delay {
-    transition-delay: 2000ms;
-}
-
 .card img {
     width: 100%;
     border-radius: 5px;
