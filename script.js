@@ -15,7 +15,10 @@ $(document).ready(function () {
     gamesPlayed = 0;
 
 //BOARD SETUP
+
+    //declare images array and function to push image tags
     var images = [];
+
     function pushImages() {
         images.push('<img src="images/bayliana.jpg" alt="Bayliana">');
         images.push('<img src="images/kiggo.jpg" alt="Kiggo">');
@@ -28,6 +31,7 @@ $(document).ready(function () {
         images.push('<img src="images/kashu.jpg" alt="Kashu">');
     }
 
+    //push two copies of each image into array and assign randomly to cards
     function assignImages() {
         pushImages();
         pushImages();
@@ -39,6 +43,7 @@ $(document).ready(function () {
         })
     }
 
+    //set cards on page load
     assignImages();
 
 //GAME PLAY FUNCTIONALITY
@@ -50,7 +55,8 @@ $(document).ready(function () {
 
     //function for when a card is clicked
     function cardClicked() {
-        //checks to see if card is already face down. prevents re-flipping cards
+        //checks to see if card is already face down. prevents re-flipping cards && if two cards are flipped,
+        // prevents third card
         if ($(this).find(".front").hasClass('down') && secondCardClicked == null) {
 
             flipCard(this);
@@ -115,14 +121,17 @@ $(document).ready(function () {
     $("#reset").click(function () {
         resetStats();
 
+        //flip over all cards that are face up
         $(".card").each(function () {
             if ($(this).find(".back").hasClass("down")){
                 flipCard(this);
             }
         });
 
+        //remove victory message
         $("#victory").removeClass('victory');
-        
+
+        //shuffle w/ delay
         setTimeout(function () {
             assignImages();
         }, 1000);
