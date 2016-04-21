@@ -10,6 +10,12 @@ $(document).ready(function () {
     secondCardClicked = null;
     totalPossibleMatches = $('.card').length / 2;
     matchCounter = 0;
+    matches = 0;
+    attempts = 0;
+    accuracy = 0;
+    gamesPlayed = 0;
+    
+//GAME PLAY FUNCTIONALITY
     
     //function to flip card
     function flipCard(x) {
@@ -27,14 +33,18 @@ $(document).ready(function () {
                 firstCardClicked = this;
             } else {
                 secondCardClicked = this;
+                attempts++;
+                $("#attempts").text(attempts);
                 if ($(firstCardClicked).html() == $(secondCardClicked).html()) {
                     matchCounter++;
+                    matches++;
                     firstCardClicked = null;
                     secondCardClicked = null;
                     if (matchCounter == totalPossibleMatches) {
                         setTimeout(function () {
                             $("#victory").toggleClass('victory');
                         }, 750);
+                        gamesPlayed += 1;
                     }
                 } else {
                     setTimeout(function () {
@@ -44,6 +54,9 @@ $(document).ready(function () {
                         secondCardClicked = null;
                     }, 2000);
                 }
+                //I think this will set the accuracy after checking for matches with each second click
+                accuracy = Math.round(100 * (matches / attempts));
+                $("#accuracy").text(accuracy + "%");
             }
         }
     }
@@ -51,4 +64,24 @@ $(document).ready(function () {
     //delegated handler
     $("#game-area").on('click', ".card", cardClicked);
 
+//STATS AND RESET
+    function displayStats() {
+        $("#games-played").text(gamesPlayed);
+        $("#attempts").text(attempts);
+        $("#accuracy").text(accuracy + "%");
+    }
+
+    //shows stat placeholders on load
+    displayStats();
+    
+    function resetStats() {
+        matches = 0;
+        attempts = 0;
+        accuracy = 0;
+        displayStats();
+    }
+    
+    $("#reset").click(function () {
+        resetStats();
+    })
 });
