@@ -130,13 +130,9 @@ h1.win {
     box-sizing: border-box;
 }
 
-/*.card img:hover {*/
-    /*transform: scale(1.025);*/
-/*}*/
-
-/*.card:active img{*/
-    /*box-shadow: 2px 2px 2px black;*/
-/*}*/
+.card:hover {
+    transform: scale(1.025);
+}
 
 /*Score Board Area*/
 .score-board{
