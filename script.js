@@ -14,7 +14,33 @@ $(document).ready(function () {
     accuracy = 0;
     gamesPlayed = 0;
 
-    console.log('total possible matches: ' + totalPossibleMatches);
+//BOARD SETUP
+    var images = [];
+    function pushImages() {
+        images.push('<img src="images/bayliana.jpg" alt="Bayliana">');
+        images.push('<img src="images/kiggo.jpg" alt="Kiggo">');
+        images.push('<img src="images/morit.jpg" alt="Morit">');
+        images.push('<img src="images/eijaal.jpg" alt="Eijaal">');
+        images.push('<img src="images/kachall.jpg" alt="Kachall">');
+        images.push('<img src="images/xail.jpg" alt="Xail">');
+        images.push('<img src="images/kiggar.jpg" alt="Kiggar">');
+        images.push('<img src="images/meltheir.jpg" alt="Meltheir">');
+        images.push('<img src="images/kashu.jpg" alt="Kashu">');
+    }
+
+    function assignImages() {
+        pushImages();
+        pushImages();
+
+        $(".card").each(function () {
+            var x = Math.floor((Math.random() * images.length - 1) + 1);
+            $(this).find('.front').html(images[x]);
+            images.splice(x, 1);
+        })
+    }
+
+    assignImages();
+
 //GAME PLAY FUNCTIONALITY
     
     //function to flip card
@@ -25,7 +51,7 @@ $(document).ready(function () {
     //function for when a card is clicked
     function cardClicked() {
         //checks to see if card is already face down. prevents re-flipping cards
-        if ($(this).children(".front").hasClass('down') && secondCardClicked == null) {
+        if ($(this).find(".front").hasClass('down') && secondCardClicked == null) {
 
             flipCard(this);
 
@@ -35,19 +61,22 @@ $(document).ready(function () {
                 secondCardClicked = this;
                 attempts++;
                 $("#attempts").text(attempts);
+                
+                //check for match
                 if ($(firstCardClicked).html() == $(secondCardClicked).html()) {
                     matches++;
-
-                    console.log('matches: ' + matches);
-
                     firstCardClicked = null;
                     secondCardClicked = null;
+                    
+                    //check for finished
                     if (matches == totalPossibleMatches) {
                         setTimeout(function () {
                             $("#victory").addClass('victory');
                         }, 750);
                         gamesPlayed += 1;
                     }
+                    
+                //not matched
                 } else {
                     setTimeout(function () {
                         flipCard(firstCardClicked);
@@ -56,7 +85,7 @@ $(document).ready(function () {
                         secondCardClicked = null;
                     }, 2000);
                 }
-                //I think this will set the accuracy after checking for matches with each second click
+                //set the accuracy after checking for matches with each second pick
                 accuracy = Math.round(100 * (matches / attempts));
                 $("#accuracy").text(accuracy + "%");
             }
@@ -87,11 +116,16 @@ $(document).ready(function () {
         resetStats();
 
         $(".card").each(function () {
-            if ($(this).children(".back").hasClass("down")){
+            if ($(this).find(".back").hasClass("down")){
                 flipCard(this);
             }
-        })
+        });
 
         $("#victory").removeClass('victory');
+        
+        setTimeout(function () {
+            assignImages();
+        }, 1000);
+        
     })
 });
