@@ -159,6 +159,18 @@ h1.win {
 
 .reset {
     cursor: pointer;
+    position: relative;
+    display: inline-block;
+    border: 3px outset whitesmoke;
+    padding: 13px;
+}
+
+.reset:hover {
+    background-color: rgb(20, 20, 20);
+}
+
+.reset:active {
+    border: 1px outset whitesmoke;
 }
 
 /*About Page*/
