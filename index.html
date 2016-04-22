@@ -119,8 +119,20 @@
                 <h4 class="reset" id="reset">Reset Game</h4>
             </div>
         </div>
-        <audio controls id="player"></audio>
     </main>
+    <div id="settings">
+        <label for="background-volume">Background Music Volume</label>
+        <input type="range" id="background-volume">
+        <audio src="http://wow.zamimg.com/wowsounds/53198" controls id="background_music_player" loop></audio>
+
+        <label for="spell-volume">Spell Effect Volume</label>
+        <input type="range" id="spell-volume">
+        <audio controls id="spell_player"></audio>
+
+        <label for="emote-volume">Emote Effect Volume</label>
+        <input type="range" id="emote-volume">
+        <audio controls id="emote_player"></audio>
+    </div>
 </div>
 </body>
 </html>

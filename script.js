@@ -47,18 +47,45 @@ $(document).ready(function () {
     assignImages();
     
 //AUDIO FILE SETUP
-    var sounds = {
+    var emotes = {
         bayliana: "http://wow.zamimg.com/wowsounds/539260",
         kiggo: "http://wow.zamimg.com/wowsounds/541435",
         morit: "http://wow.zamimg.com/wowsounds/542787",
-        eijaal: "http://wow.zamimg.com/wowsounds/569357",
+        eijaal: "http://wow.zamimg.com/wowsounds/543040",
         kachall: "http://wow.zamimg.com/wowsounds/541404",
         xail: "http://wow.zamimg.com/wowsounds/539166",
-        kiggar: "http://wow.zamimg.com/wowsounds/569423",
+        kiggar: "http://wow.zamimg.com/wowsounds/541389",
         meltheir: "http://wow.zamimg.com/wowsounds/539228",
-        kashu: "http://wow.zamimg.com/wowsounds/541391",
-        victory: ""
+        kashu: "http://wow.zamimg.com/wowsounds/541391"
     };
+    
+    var spells = {
+        bayliana: "http://wow.zamimg.com/wowsounds/569763",
+        kiggo: "http://wow.zamimg.com/wowsounds/568524",
+        morit: "http://wow.zamimg.com/wowsounds/569138",
+        eijaal: "http://wow.zamimg.com/wowsounds/569357",
+        kachall: "http://wow.zamimg.com/wowsounds/568049",
+        xail: "http://wow.zamimg.com/wowsounds/568585",
+        kiggar: "http://wow.zamimg.com/wowsounds/569423",
+        meltheir: "http://wow.zamimg.com/wowsounds/569675",
+        kashu: "http://wow.zamimg.com/wowsounds/569079"
+    };
+
+//AUDIO SETUP
+
+    //start music
+    $("#background_music_player")[0].play();
+
+    function setVolume() {
+        $("#background_music_player").prop('volume', ($("#background-volume").val() / 100));
+        $("#spell_player").prop('volume', ($("#spell-volume").val() / 100));
+        $("#emote_player").prop('volume', ($("#emote-volume").val() / 100));
+    }
+
+    //sets volume to half on load
+    setVolume();
+
+    
 
 //GAME PLAY FUNCTIONALITY
     
@@ -75,6 +102,11 @@ $(document).ready(function () {
 
             flipCard(this);
 
+            //plays spell sound
+            var character = $(this).find('img').attr('alt');
+            $("#spell_player").attr('src', spells[character]);
+            $("#spell_player")[0].play();
+
             if (firstCardClicked == null) {
                 firstCardClicked = this;
             } else {
@@ -85,10 +117,10 @@ $(document).ready(function () {
                 //check for match
                 if ($(firstCardClicked).html() == $(secondCardClicked).html()) {
                     matches++;
-                    var character = $(this).find('img').attr('alt');
-                    $("#player").attr('src',sounds[character]);
-                    $("#player")[0].play();
-                    console.log(sounds[character]);
+
+                    //plays emote on match
+                    $("#emote_player").attr('src',emotes[character]);
+                    $("#emote_player")[0].play();
                     firstCardClicked = null;
                     secondCardClicked = null;
                     
