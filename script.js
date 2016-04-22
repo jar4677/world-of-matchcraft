@@ -89,7 +89,7 @@ $(document).ready(function () {
                         flipCard(secondCardClicked);
                         firstCardClicked = null;
                         secondCardClicked = null;
-                    }, 2000);
+                    }, 1250);
                 }
                 //set the accuracy after checking for matches with each second pick
                 accuracy = Math.round(100 * (matches / attempts));
