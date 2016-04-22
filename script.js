@@ -20,15 +20,15 @@ $(document).ready(function () {
     var images = [];
 
     function pushImages() {
-        images.push('<img src="images/bayliana.jpg" alt="Bayliana">');
-        images.push('<img src="images/kiggo.jpg" alt="Kiggo">');
-        images.push('<img src="images/morit.jpg" alt="Morit">');
-        images.push('<img src="images/eijaal.jpg" alt="Eijaal">');
-        images.push('<img src="images/kachall.jpg" alt="Kachall">');
-        images.push('<img src="images/xail.jpg" alt="Xail">');
-        images.push('<img src="images/kiggar.jpg" alt="Kiggar">');
-        images.push('<img src="images/meltheir.jpg" alt="Meltheir">');
-        images.push('<img src="images/kashu.jpg" alt="Kashu">');
+        images.push('<img src="images/bayliana.jpg" alt="bayliana">');
+        images.push('<img src="images/kiggo.jpg" alt="kiggo">');
+        images.push('<img src="images/morit.jpg" alt="morit">');
+        images.push('<img src="images/eijaal.jpg" alt="eijaal">');
+        images.push('<img src="images/kachall.jpg" alt="kachall">');
+        images.push('<img src="images/xail.jpg" alt="xail">');
+        images.push('<img src="images/kiggar.jpg" alt="kiggar">');
+        images.push('<img src="images/meltheir.jpg" alt="meltheir">');
+        images.push('<img src="images/kashu.jpg" alt="kashu">');
     }
 
     //push two copies of each image into array and assign randomly to cards
@@ -45,6 +45,20 @@ $(document).ready(function () {
 
     //set cards on page load
     assignImages();
+    
+//AUDIO FILE SETUP
+    var sounds = {
+        bayliana: "http://wow.zamimg.com/wowsounds/539260",
+        kiggo: "http://wow.zamimg.com/wowsounds/541435",
+        morit: "http://wow.zamimg.com/wowsounds/542787",
+        eijaal: "http://wow.zamimg.com/wowsounds/569357",
+        kachall: "http://wow.zamimg.com/wowsounds/541404",
+        xail: "http://wow.zamimg.com/wowsounds/539166",
+        kiggar: "http://wow.zamimg.com/wowsounds/569423",
+        meltheir: "http://wow.zamimg.com/wowsounds/539228",
+        kashu: "http://wow.zamimg.com/wowsounds/541391",
+        victory: ""
+    };
 
 //GAME PLAY FUNCTIONALITY
     
@@ -71,6 +85,10 @@ $(document).ready(function () {
                 //check for match
                 if ($(firstCardClicked).html() == $(secondCardClicked).html()) {
                     matches++;
+                    var character = $(this).find('img').attr('alt');
+                    $("#player").attr('src',sounds[character]);
+                    $("#player")[0].play();
+                    console.log(sounds[character]);
                     firstCardClicked = null;
                     secondCardClicked = null;
                     
@@ -138,3 +156,4 @@ $(document).ready(function () {
         
     })
 });
+

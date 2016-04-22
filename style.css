@@ -62,6 +62,10 @@ body {
     color: gold;
 }
 
+#player {
+    display: none;
+}
+
 /*Main Body Area*/
 main {
     width: 96%;
