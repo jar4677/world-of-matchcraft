@@ -15,7 +15,7 @@
         <h1 id="title">For the Horde!</h1>
         <div class="links">
             <ul>
-                <li><a href="#">Settings</a></li>
+                <li><a href="#" id="settings">Settings</a></li>
                 <li><a href="about.html">About</a></li>
                 <li></li>
             </ul>
@@ -97,6 +97,7 @@
                 <div class="back"><img src="images/card-back-1.jpg" alt="card back"></div>
             </div>
             <h1 id="victory">Victory!!!</h1>
+
         </div>
 
         <div class="score-board">
@@ -116,22 +117,35 @@
             </div>
 
             <div class="sb-section">
-                <h4 class="reset" id="reset">Reset Game</h4>
+                <h4 class="reset button" id="reset">Reset Game</h4>
             </div>
         </div>
     </main>
-    <div id="settings">
-        <label for="background-volume">Background Music Volume</label>
-        <input type="range" id="background-volume">
+</div>
+<div id="settings-background">
+    <div id="settings-window">
+        <label for="background-volume">Background Music Volume</label><br>
+        <input type="range" id="background-volume"><br>
+        <input type="checkbox" data-role="flipswitch" id="background-mute">
+        <label for="background-mute">Mute</label><br>
         <audio src="http://wow.zamimg.com/wowsounds/53198" controls id="background_music_player" loop></audio>
+        <br>
 
-        <label for="spell-volume">Spell Effect Volume</label>
-        <input type="range" id="spell-volume">
+        <label for="spell-volume">Spell Effect Volume</label><br>
+        <input type="range" id="spell-volume"><br>
+        <input type="checkbox" data-role="flipswitch" id="spell-mute">
+        <label for="spell-mute">Mute</label><br>
         <audio controls id="spell_player"></audio>
+        <br>
 
-        <label for="emote-volume">Emote Effect Volume</label>
-        <input type="range" id="emote-volume">
+        <label for="emote-volume">Emote Effect Volume</label><br>
+        <input type="range" id="emote-volume"><br>
+        <input type="checkbox" data-role="flipswitch" id="emote-mute">
+        <label for="emote-mute">Mute</label><br>
         <audio controls id="emote_player"></audio>
+        <br>
+
+        <h4 class="button" id="apply-settings">Apply Settings</h4>
     </div>
 </div>
 </body>

@@ -73,8 +73,17 @@ $(document).ready(function () {
 
 //AUDIO SETUP
 
+    //open settings
+    $("#settings").click(function () {
+        $("#settings-background").toggleClass('settings-open');
+    });
+
     //start music
     $("#background_music_player")[0].play();
+
+    console.log('background mute: ', $("#background-mute").checked);
+    console.log('spell mute: ', $("#spell-mute").checked);
+    console.log('emote mute: ', $("#emote-mute").checked);
 
     function setVolume() {
         $("#background_music_player").prop('volume', ($("#background-volume").val() / 100));
@@ -85,7 +94,10 @@ $(document).ready(function () {
     //sets volume to half on load
     setVolume();
 
-    
+    $("#settings-window").find(".button").click(function () {
+       setVolume();
+       $("#settings-background").toggleClass('settings-open');
+    });
 
 //GAME PLAY FUNCTIONALITY
     

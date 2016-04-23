@@ -66,9 +66,52 @@ audio {
     display: none;
 }
 
-#settings{
-    /*position: fixed;*/
+/*Settings Window*/
+#settings-background{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
 }
+
+.settings-open{
+    display: block !important;
+}
+
+#settings-window{
+    position: absolute;
+    height: 335px;
+    width: 220px;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    background-color: grey;
+    padding: 40px;
+    border: 4px solid whitesmoke;
+    font-size: 20px;
+    opacity: 1;
+}
+
+/*also for reset*/
+.button {
+    cursor: pointer;
+    border: 3px outset whitesmoke;
+    padding: 13px;
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.button:hover {
+    background-color: rgb(20, 20, 20);
+}
+
+.button:active {
+    border: 1px outset whitesmoke;
+}
+
 /*Main Body Area*/
 main {
     width: 96%;
@@ -162,22 +205,6 @@ h1.win {
     text-align: center;
     box-sizing: border-box;
     font-size: 25px;
-}
-
-.reset {
-    cursor: pointer;
-    position: relative;
-    display: inline-block;
-    border: 3px outset whitesmoke;
-    padding: 13px;
-}
-
-.reset:hover {
-    background-color: rgb(20, 20, 20);
-}
-
-.reset:active {
-    border: 1px outset whitesmoke;
 }
 
 /*About Page*/
