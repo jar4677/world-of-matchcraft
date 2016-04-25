@@ -125,27 +125,27 @@
 <div id="settings-background">
     <div id="settings-window">
         <label for="background-volume">Background Music Volume</label><br>
-        <input type="range" id="background-volume"><br>
-        <input type="checkbox" data-role="flipswitch" id="background-mute">
+        <input type="range" class="slider" id="background-volume"><br>
+        <span class="mute" id="background-mute"></span>
         <label for="background-mute">Mute</label><br>
         <audio src="http://wow.zamimg.com/wowsounds/53198" controls id="background_music_player" loop></audio>
         <br>
 
         <label for="spell-volume">Spell Effect Volume</label><br>
-        <input type="range" id="spell-volume"><br>
-        <input type="checkbox" data-role="flipswitch" id="spell-mute">
+        <input type="range" class="slider" id="spell-volume"><br>
+        <input type="checkbox" data-role="flipswitch" class="mute" id="spell-mute">
         <label for="spell-mute">Mute</label><br>
         <audio controls id="spell_player"></audio>
         <br>
 
         <label for="emote-volume">Emote Effect Volume</label><br>
-        <input type="range" id="emote-volume"><br>
-        <input type="checkbox" data-role="flipswitch" id="emote-mute">
+        <input type="range" class="slider" id="emote-volume"><br>
+        <input type="checkbox" data-role="flipswitch" class="mute" id="emote-mute">
         <label for="emote-mute">Mute</label><br>
         <audio controls id="emote_player"></audio>
         <br>
 
-        <h4 class="button" id="apply-settings">Apply Settings</h4>
+        <h4 class="button" id="close">Close</h4>
     </div>
 </div>
 </body>

@@ -81,10 +81,6 @@ $(document).ready(function () {
     //start music
     $("#background_music_player")[0].play();
 
-    console.log('background mute: ', $("#background-mute").checked);
-    console.log('spell mute: ', $("#spell-mute").checked);
-    console.log('emote mute: ', $("#emote-mute").checked);
-
     function setVolume() {
         $("#background_music_player").prop('volume', ($("#background-volume").val() / 100));
         $("#spell_player").prop('volume', ($("#spell-volume").val() / 100));
@@ -94,8 +90,11 @@ $(document).ready(function () {
     //sets volume to half on load
     setVolume();
 
-    $("#settings-window").find(".button").click(function () {
+    $(".slider").on("change", function () {
        setVolume();
+    });
+
+    $("#settings-window").find(".button").click(function () {
        $("#settings-background").toggleClass('settings-open');
     });
 
@@ -162,6 +161,14 @@ $(document).ready(function () {
     
     //delegated handler
     $("#game-area").on('click', ".card", cardClicked);
+
+    //about page handler
+    $("figure").click(function () {
+        console.log('clicked');
+        var character = $(this).find('img').attr('alt');
+        $("#emote_player").attr('src',emotes[character]);
+        $("#emote_player")[0].play();
+    });
 
 //STATS AND RESET
     function displayStats() {
