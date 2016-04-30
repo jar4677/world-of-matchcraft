@@ -142,6 +142,7 @@ h1.win {
 #victory {
     display: none;
     position: absolute;
+    z-index: 1;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotateZ(16deg);

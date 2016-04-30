@@ -6,6 +6,7 @@
 $(document).ready(function () {
     var gameBoard = new GameBoard(1);
     gameBoard.createCardObjs(18);
+    gameBoard.player.displayStats();
 
     $("#game-area").on("click", ".card", gameBoard.cardClicked);
 });
@@ -15,20 +16,24 @@ function GameBoard(players) {
     var self = this;
     self.charArray = [];
     self.cards = [];
-    self.cardDivs =[];
     self.players = players;
-    self.state = 'none';
+    self.firstCard = null;
+    self.secondCard = null;
+    self.player = new Player();
+    self.possibleMatches = null;
 }
 
 //Method To Generate Cards
 GameBoard.prototype.createCardObjs = function (numCards) {
     this.prepCharacters(numCards);
+    this.possibleMatches = numCards / 2;
     for (var i = 0; i < numCards; i++) {
         var index = Math.floor((Math.random() * this.charArray.length - 1) + 1);
         var character = new Character(this.charArray[index]);
         this.charArray.splice(index, 1);
         var domObj = this.createDOMObj(character);
         var newCard = new Card(domObj , character, this);
+        $(domObj).data(newCard);
         this.cards.push(newCard);
     }
 };
@@ -49,9 +54,9 @@ GameBoard.prototype.prepCharacters = function (numCards) {
 //Method To Generate DOM Objects
 GameBoard.prototype.createDOMObj = function (character) {
     var card = $("<div>").addClass('card');
-    var front = $("<div>").addClass('front');
+    var front = $("<div>").addClass('front down');
     var frontImg = $("<img>").attr('src', "images/" + character.name + ".jpg");
-    var back = $("<div>").addClass('back down');
+    var back = $("<div>").addClass('back');
     var backImg = $("<img>").attr('src', "images/card-back-1.jpg");
 
     $(front).append(frontImg);
@@ -64,7 +69,53 @@ GameBoard.prototype.createDOMObj = function (character) {
 
 //Method To Handle Clicks
 GameBoard.prototype.cardClicked = function () {
-    
+    var card = $(this).data();
+    var board = card.board;
+    // var firstCard = board.firstCard;
+    // var secondCard = board.secondCard;
+    var player = board.player;
+
+    if (card.state == 'down' && board.secondCard == null) {
+        card.flip();
+        $("#spell_player").attr('src', card.character.spell);
+        $("#spell_player")[0].play();
+
+        if (board.firstCard == null) {
+            board.firstCard = card;
+        } else if (board.secondCard == null) {
+            board.secondCard = card;
+            player.attempts++;
+            $("#attempts").text(player.attempts);
+
+            console.log('1st: ' + board.firstCard.character.name, '2nd: ' + board.secondCard.character.name);
+
+            //check for match
+            if (board.firstCard.character.name == board.secondCard.character.name) {
+                player.matches++;
+
+                $("#emote_player").attr('src', card.character.emote);
+                $("#emote_player")[0].play();
+                board.firstCard = null;
+                board.secondCard = null;
+
+                if (player.matches == board.possibleMatches) {
+                    setTimeout(function () {
+                        $("#victory").addClass('victory');
+                    }, 750);
+                    player.games += 1;
+                }
+            } else{
+                setTimeout(function () {
+                    board.firstCard.flip();
+                    board.secondCard.flip();
+                    board.firstCard = null;
+                    board.secondCard = null;
+                }, 1250);
+            }
+            player.accuracy = Math.round(100 * (player.matches / player.attempts));
+            $("#accuracy").text(player.accuracy + "%");
+        }
+    }
 };
 
 //Method To Clear Cards
@@ -80,7 +131,15 @@ function Card(element, character, board) {
     this.state = 'down';
 }
 
-
+//Method To Flip Cards
+Card.prototype.flip = function () {
+  $(this.element).find('div').toggleClass('down');
+    if(this.state == 'down'){
+        this.state = 'up';
+    } else {
+        this.state = 'down';
+    }
+};
 
 //CONSTRUCTOR FOR CHARACTERS
 function Character(name) {
@@ -88,6 +147,21 @@ function Character(name) {
     this.spell = spells[this.name];
     this.emote = emotes[this.name];
 }
+
+//CONSTRUCTOR FOR PLAYERS
+function Player(){
+    this.attempts = 0;
+    this.matches = 0;
+    this.games = 0;
+    this.accuracy = 0;
+}
+
+//Method To Display Stats
+Player.prototype.displayStats = function() {
+    $("#games-played").text(this.games);
+    $("#attempts").text(this.attempts);
+    $("#accuracy").text(this.accuracy + "%");
+};
 
 //OBJECTS FOR ASSETS
 var emotes = {
