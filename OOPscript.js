@@ -6,16 +6,18 @@
 $(document).ready(function () {
     var gameBoard = new GameBoard(1);
     gameBoard.createCardObjs(18);
-    
+
+    $("#game-area").on("click", ".card", gameBoard.cardClicked);
 });
 
 //CONSTRUCTOR FOR GAME BOARD
-/*TODO             numCards needs to be 1/2 the total              TODO*/
 function GameBoard(players) {
-    this.charArray = [];
-    this.cards = [];
-    this.players = players;
-    this.state = 'none';
+    var self = this;
+    self.charArray = [];
+    self.cards = [];
+    self.cardDivs =[];
+    self.players = players;
+    self.state = 'none';
 }
 
 //Method To Generate Cards
@@ -26,7 +28,7 @@ GameBoard.prototype.createCardObjs = function (numCards) {
         var character = new Character(this.charArray[index]);
         this.charArray.splice(index, 1);
         var domObj = this.createDOMObj(character);
-        var newCard = new Card(domObj , character);
+        var newCard = new Card(domObj , character, this);
         this.cards.push(newCard);
     }
 };
@@ -57,14 +59,12 @@ GameBoard.prototype.createDOMObj = function (character) {
     $(card).append(front, back);
     $("#game-area").append(card);
 
-    return $(card);
+    return card;
 };
 
 //Method To Handle Clicks
 GameBoard.prototype.cardClicked = function () {
-    if (this.state == 'none'){
-        
-    }
+    
 };
 
 //Method To Clear Cards
@@ -73,9 +73,10 @@ GameBoard.prototype.clearCards = function () {
 };
 
 //CONSTRUCTOR FOR CARDS
-function Card(element, character) {
+function Card(element, character, board) {
     this.element = element;
     this.character = character;
+    this.board = board;
     this.state = 'down';
 }
 
