@@ -186,18 +186,19 @@ h1.win {
     box-sizing: border-box;
 }
 
-@keyframes breathe {
-    0%{transform: scale(1);}
-    50%{transform: scale(1.05);}
-    100%{transform: scale(1);}
-}
+/*@keyframes breathe {*/
+    /*0%{transform: scale(1);}*/
+    /*50%{transform: scale(1.05);}*/
+    /*100%{transform: scale(1);}*/
+/*}*/
 
 .card:hover {
-    animation-name: breathe;
-    animation-duration: 1s;
-    animation-fill-mode: none;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+    transform: scale(1.025);
+    /*animation-name: breathe;*/
+    /*animation-duration: 1s;*/
+    /*animation-fill-mode: none;*/
+    /*animation-timing-function: linear;*/
+    /*animation-iteration-count: infinite;*/
 }
 
 /*Score Board Area*/

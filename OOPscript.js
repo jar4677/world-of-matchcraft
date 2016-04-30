@@ -4,11 +4,27 @@
 
 //DOCUMENT READY FOR EVENT HANDLERS
 $(document).ready(function () {
+    //things to do when the page loads
+    //set up game board
     var gameBoard = new GameBoard(1);
     gameBoard.createCardObjs(18);
     gameBoard.player.displayStats();
 
+    //start music
+    gameBoard.setVolume();
+    $("#background_music_player")[0].play();
+
+
+    //CLICK HANDLERS
     $("#game-area").on("click", ".card", gameBoard.cardClicked);
+    $("#reset").click(gameBoard.reset);
+    $(".slider").on("change", gameBoard.setVolume);
+    $("#settings").click(function () {
+        $("#settings-background").addClass('settings-open');
+    });
+    $("#settings-window").find(".button").click(function () {
+        $("#settings-background").removeClass('settings-open');
+    });
 });
 
 //CONSTRUCTOR FOR GAME BOARD
@@ -21,6 +37,7 @@ function GameBoard(players) {
     self.secondCard = null;
     self.player = new Player();
     self.possibleMatches = null;
+    $("#reset").data(this);
 }
 
 //Method To Generate Cards
@@ -120,7 +137,28 @@ GameBoard.prototype.cardClicked = function () {
 
 //Method To Clear Cards
 GameBoard.prototype.clearCards = function () {
-    
+    $("#game-area").html("<h1 id='victory'>Victory!!!</h1>");
+    this.cards = [];
+};
+
+//Method To Reset Board
+GameBoard.prototype.reset = function () {
+    var board = $(this).data();
+    console.log('event fired');
+    board.player.attempts = 0;
+    board.player.matches = 0;
+    board.player.accuracy = 0;
+    board.player.displayStats();
+    $("#victory").removeClass('victory');
+    board.clearCards();
+    board.createCardObjs(18);
+};
+
+//Method To Set Volume
+GameBoard.prototype.setVolume = function () {
+    $("#background_music_player").prop('volume', ($("#background-volume").val() / 100));
+    $("#spell_player").prop('volume', ($("#spell-volume").val() / 100));
+    $("#emote_player").prop('volume', ($("#emote-volume").val() / 100));
 };
 
 //CONSTRUCTOR FOR CARDS
