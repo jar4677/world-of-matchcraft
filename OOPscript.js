@@ -12,7 +12,7 @@ $(document).ready(function () {
 
     //start music
     gameBoard.setVolume();
-    $("#background_music_player")[0].play();
+    // $("#background_music_player")[0].play();
 
 
     //CLICK HANDLERS
@@ -29,14 +29,14 @@ $(document).ready(function () {
 
 //CONSTRUCTOR FOR GAME BOARD
 function GameBoard(players) {
-    var self = this;
-    self.charArray = [];
-    self.cards = [];
-    self.players = players;
-    self.firstCard = null;
-    self.secondCard = null;
-    self.player = new Player();
-    self.possibleMatches = null;
+    // var self = this;
+    this.charArray = [];
+    this.cards = [];
+    this.players = players;
+    this.firstCard = null;
+    this.secondCard = null;
+    this.player = new Player();
+    this.possibleMatches = null;
     $("#reset").data(this);
 }
 
@@ -49,10 +49,16 @@ GameBoard.prototype.createCardObjs = function (numCards) {
         var character = new Character(this.charArray[index]);
         this.charArray.splice(index, 1);
         var domObj = this.createDOMObj(character);
+
         var newCard = new Card(domObj , character, this);
         $(domObj).data(newCard);
-        this.cards.push(newCard);
+        this.cards.push($(domObj).data());
+
+    // attempted to make the cards directly into the array - encountered anomalies
+    //     this.cards[i] = new Card(domObj, character, this);
+    //     $(domObj).data(this.cards[i]);
     }
+    console.log(this.cards);
 };
 
 //Method To Prep Characters
@@ -88,8 +94,6 @@ GameBoard.prototype.createDOMObj = function (character) {
 GameBoard.prototype.cardClicked = function () {
     var card = $(this).data();
     var board = card.board;
-    // var firstCard = board.firstCard;
-    // var secondCard = board.secondCard;
     var player = board.player;
 
     if (card.state == 'down' && board.secondCard == null) {
@@ -103,8 +107,6 @@ GameBoard.prototype.cardClicked = function () {
             board.secondCard = card;
             player.attempts++;
             $("#attempts").text(player.attempts);
-
-            console.log('1st: ' + board.firstCard.character.name, '2nd: ' + board.secondCard.character.name);
 
             //check for match
             if (board.firstCard.character.name == board.secondCard.character.name) {
@@ -144,14 +146,25 @@ GameBoard.prototype.clearCards = function () {
 //Method To Reset Board
 GameBoard.prototype.reset = function () {
     var board = $(this).data();
-    console.log('event fired');
     board.player.attempts = 0;
     board.player.matches = 0;
     board.player.accuracy = 0;
     board.player.displayStats();
     $("#victory").removeClass('victory');
-    board.clearCards();
-    board.createCardObjs(18);
+
+    console.log(board.cards);
+    //flip cards back over
+    for (var i = 0; i < board.cards.length; i++){
+        if (board.cards[i].state == 'up'){
+            board.cards[i].flip();
+        }
+    }
+
+    //reset board
+    setTimeout(function () {
+        board.clearCards();
+        board.createCardObjs(18);
+    }, 1000);
 };
 
 //Method To Set Volume
@@ -171,12 +184,15 @@ function Card(element, character, board) {
 
 //Method To Flip Cards
 Card.prototype.flip = function () {
-  $(this.element).find('div').toggleClass('down');
+    $(this.element).find('div').toggleClass('down');
+
     if(this.state == 'down'){
         this.state = 'up';
     } else {
         this.state = 'down';
     }
+
+    console.log(this.board.cards);
 };
 
 //CONSTRUCTOR FOR CHARACTERS
