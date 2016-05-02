@@ -29,7 +29,6 @@ $(document).ready(function () {
 
 //CONSTRUCTOR FOR GAME BOARD
 function GameBoard(players) {
-    // var self = this;
     this.charArray = [];
     this.cards = [];
     this.players = players;
@@ -50,10 +49,19 @@ GameBoard.prototype.createCardObjs = function (numCards) {
         this.charArray.splice(index, 1);
         var domObj = this.createDOMObj(character);
         
-        var newCard = new Card(domObj , character, this);
+        var newCard = new Card(domObj, character, this);
         $(domObj).data(newCard);
         this.cards.push($(domObj).data());
-        
+
+        // tried with a closure
+        // var self = this;
+        //
+        // (function () {
+        //     var x = newCard;
+        //     self.cards.push(x);
+        //     $(domObj).data(x);
+        // })();
+
         // attempted to make the cards directly into the array - encountered anomalies
         //     this.cards[i] = new Card(domObj, character, this);
         //     $(domObj).data(this.cards[i]);
@@ -191,7 +199,6 @@ Card.prototype.flip = function () {
     } else {
         this.state = 'down';
     }
-    
     console.log(this.board.cards);
 };
 
