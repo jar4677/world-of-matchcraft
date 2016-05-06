@@ -67,10 +67,53 @@ body {
 }
 
 #azeroth-map {
+    height: 668px;
+    width: 1002px;
     position: relative;
     top: 160px;
     left: 50%;
     transform: translateX(-50%);
+    background: url("images/azeroth-map.jpg");
+    box-shadow: 4px 4px 10px black inset;
+}
+
+#card-area {
+    height: 668px;
+    width: 2004px;
+    position: absolute;
+    top: 160px;
+    left: calc(50% - 501px);
+    background-color: orange;
+    opacity: .5;
+    transition-duration: 1.5s;
+}
+
+#card-area:hover {
+    left: calc(50% - 1503px);
+}
+
+#horde-cards, #alliance-cards {
+    height: 668px;
+    width: 1002px;
+    float: left;
+    background-color: green;
+}
+
+.card {
+    float: left;
+    width: 134px;
+    height: 189px;
+    margin: 16px 15px;
+    /*position: relative;*/
+
+}
+
+.horde {
+    background-color: red;
+}
+
+.alliance {
+    background-color: blue;
 }
 
 /*FOREGROUND LAYER*/
@@ -92,6 +135,7 @@ body {
     height: 100%;
     width: 1002px;
     float: left;
+    position: relative;
 }
 
 .foreground-center-top {
@@ -109,5 +153,7 @@ body {
 .foreground-center-bottom {
     height: calc(100% - 828px);
     width: 100%;
+    position: absolute;
+    bottom: 0;
     background-color: antiquewhite;
 }
