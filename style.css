@@ -11,6 +11,54 @@ body {
     font-family: serif;
 }
 
+/*Settings Window*/
+#settings-background{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.settings-open{
+    display: block !important;
+}
+
+#settings-window{
+    position: absolute;
+    height: 335px;
+    width: 220px;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    background-color: grey;
+    padding: 40px;
+    border: 4px solid whitesmoke;
+    font-size: 20px;
+    opacity: 1;
+}
+
+/*also for reset*/
+.button {
+    cursor: pointer;
+    border: 3px outset whitesmoke;
+    padding: 13px;
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.button:hover {
+    background-color: rgb(20, 20, 20);
+}
+
+.button:active {
+    border: 1px outset whitesmoke;
+}
+
+
+
 .wrapper {
     width: 1200px;
     margin: auto;
@@ -66,52 +114,6 @@ audio {
     display: none;
 }
 
-/*Settings Window*/
-#settings-background{
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-}
-
-.settings-open{
-    display: block !important;
-}
-
-#settings-window{
-    position: absolute;
-    height: 335px;
-    width: 220px;
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
-    background-color: grey;
-    padding: 40px;
-    border: 4px solid whitesmoke;
-    font-size: 20px;
-    opacity: 1;
-}
-
-/*also for reset*/
-.button {
-    cursor: pointer;
-    border: 3px outset whitesmoke;
-    padding: 13px;
-    position: relative;
-    display: inline-block;
-    box-sizing: border-box;
-}
-
-.button:hover {
-    background-color: rgb(20, 20, 20);
-}
-
-.button:active {
-    border: 1px outset whitesmoke;
-}
-
 /*Main Body Area*/
 main {
     width: 96%;
@@ -123,7 +125,7 @@ main {
     width: 1002px;
     height: 668px;
     margin: 20px auto;
-    background-image: url("images/game-board-2.jpg");
+    background-image: url("images/azeroth-map.jpg");
     border: 4px outset darkgrey;
     box-shadow: 4px 4px 20px 6px black;
     box-sizing: border-box;
@@ -290,3 +292,4 @@ footer a{
     text-decoration: none;
     color: lightgrey;
 }
+

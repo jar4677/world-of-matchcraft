@@ -3,51 +3,75 @@
 <head>
     <title>For the Horde!</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+    <!--<link rel="stylesheet" href="style.css">-->
+    <link rel="stylesheet" href="multi-player-style.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="script.js"></script>
+    <!--<script src="script.js"></script>-->
 </head>
 <body>
-<div class="wrapper">
-    <div id="header">
-        <img src="images/horde-crest.png" alt="For the Horde!" class="logo">
-        <h1 id="title">For the Horde!</h1>
-        <div class="links">
-            <ul>
-                <li><a href="#" id="settings">Settings</a></li>
-                <li><a href="about.html">About</a></li>
-                <li></li>
-            </ul>
-        </div>
-    </div>
 
-    <main>
-        <div class="game-area" id="game-area">
-            <h1 id="victory">Victory!!!</h1>
-        </div>
-
-        <div class="score-board">
-            <div class="games-played sb-section">
-                <h4 class="label">Games Played</h4>
-                <p class="value" id="games-played"></p>
-            </div>
-
-            <div class="attempts sb-section">
-                <h4 class="label">Attempts</h4>
-                <p class="value" id="attempts"></p>
-            </div>
-
-            <div class="accuracy sb-section">
-                <h4 class="label">Accuracy</h4>
-                <p class="value" id="accuracy"></p>
-            </div>
-
-            <div class="sb-section">
-                <h4 class="reset button" id="reset">Reset Game</h4>
-            </div>
-        </div>
-    </main>
+<!--TODO NEW BOARD LAYOUT FOR MULTI-PLAYER-->
+<div class="background-layer">
+    <img id="azeroth-map" src="images/azeroth-map.jpg" alt="">
 </div>
+
+<div class="foreground-layer">
+    <div class="foreground-left"></div>
+    <div class="foreground-center">
+        <div class="foreground-center-top"></div>
+        <div class="foreground-center-middle"></div>
+        <div class="foreground-center-bottom"></div>
+    </div>
+    <div class="foreground-right"></div>
+</div>
+
+<!--OLD Total Area-->
+<div class="old-wrapper">
+    <!--&lt;!&ndash;Header Area&ndash;&gt;-->
+    <!--<div id="header">-->
+        <!--<img src="images/horde-crest.png" alt="For the Horde!" class="logo">-->
+        <!--<h1 id="title">For the Horde!</h1>-->
+        <!--<div class="links">-->
+            <!--<ul>-->
+                <!--<li><a href="#" id="settings">Settings</a></li>-->
+                <!--<li><a href="about.html">About</a></li>-->
+                <!--<li></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash;Outer Game Area&ndash;&gt;-->
+    <!--<main>-->
+        <!--&lt;!&ndash;Inner Game Area&ndash;&gt;-->
+        <!--<div class="game-area" id="game-area">-->
+            <!--<h1 id="victory">Victory!!!</h1>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash;Score Area&ndash;&gt;-->
+        <!--<div class="score-board">-->
+            <!--<div class="games-played sb-section">-->
+                <!--<h4 class="label">Games Played</h4>-->
+                <!--<p class="value" id="games-played"></p>-->
+            <!--</div>-->
+
+            <!--<div class="attempts sb-section">-->
+                <!--<h4 class="label">Attempts</h4>-->
+                <!--<p class="value" id="attempts"></p>-->
+            <!--</div>-->
+
+            <!--<div class="accuracy sb-section">-->
+                <!--<h4 class="label">Accuracy</h4>-->
+                <!--<p class="value" id="accuracy"></p>-->
+            <!--</div>-->
+
+            <!--<div class="sb-section">-->
+                <!--<h4 class="reset button" id="reset">Reset Game</h4>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</main>-->
+</div>
+
+<!--Settings Page-->
 <div id="settings-background">
     <div id="settings-window">
         <label for="background-volume">Background Music Volume</label><br>
@@ -74,5 +98,6 @@
         <h4 class="button" id="close">Close</h4>
     </div>
 </div>
+
 </body>
 </html>

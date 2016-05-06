@@ -1,0 +1,113 @@
+/*Basic Setup*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    box-sizing: border-box;
+    background-color: black;
+    color: lightgrey;
+    font-family: serif;
+}
+
+/*Settings Window*/
+#settings-background{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.settings-open{
+    display: block !important;
+}
+
+#settings-window{
+    position: absolute;
+    height: 335px;
+    width: 220px;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    background-color: grey;
+    padding: 40px;
+    border: 4px solid whitesmoke;
+    font-size: 20px;
+    opacity: 1;
+}
+
+/*also for reset*/
+.button {
+    cursor: pointer;
+    border: 3px outset whitesmoke;
+    padding: 13px;
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.button:hover {
+    background-color: rgb(20, 20, 20);
+}
+
+.button:active {
+    border: 1px outset whitesmoke;
+}
+
+/*BACKGROUND LAYER*/
+
+.background-layer {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    background-color: pink;
+}
+
+#azeroth-map {
+    position: relative;
+    top: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/*FOREGROUND LAYER*/
+
+.foreground-layer {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+}
+
+.foreground-left, .foreground-right {
+    height: 100%;
+    width: calc(50% - 501px);
+    float: left;
+    background-color: antiquewhite;
+}
+
+.foreground-center {
+    height: 100%;
+    width: 1002px;
+    float: left;
+}
+
+.foreground-center-top {
+    height: 160px;
+    width: 100%;
+    background-color: antiquewhite;
+}
+
+.foreground-center-middle {
+    height: 668px;
+    width: 100%;
+    box-shadow: 4px 4px 10px black inset;
+}
+
+.foreground-center-bottom {
+    height: calc(100% - 828px);
+    width: 100%;
+    background-color: antiquewhite;
+}
