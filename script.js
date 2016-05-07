@@ -6,15 +6,25 @@
 var matchCraft = {
     numPlayers: 1,
     player1: null,
-    player2: null
+    player2: null,
+    newPlayer: function (x, name, faction, cards) {
+        matchCraft['player' + x] = new Player(name, faction, cards, x);
+    }
 };
 
 //CONSTRUCTOR FOR PLAYERS
-function Player(name, faction, cards){
+function Player(name, faction, cards, playerNumber){
     this.name = name;
     this.faction = characters[faction];
     this.cards = cards;
-    this.board = new GameBoard();
+    this.playerNumber = playerNumber;
+    this.board = null;
+    
+    this.createBoard = function () {
+        this.board = new GameBoard(this);    
+    };
+    
+    return this;
 }
 
 //Player Method To Display Stats
@@ -25,24 +35,26 @@ Player.prototype.displayStats = function() {
 };
 
 //CONSTRUCTOR FOR GAME BOARD
-function GameBoard() {
+function GameBoard(player) {
+    this.player = player;
     this.characters = [];
     this.cards = [];
     this.firstCard = null;
     this.secondCard = null;
-    this.player = null;
-    this.possibleMatches = null;
+    this.possibleMatches = (player.cards / 2);
 }
 
 //Game Board Method To Generate Cards
-GameBoard.prototype.createCardObjs = function (numCards) {
-    this.prepCharacters(numCards);
-    this.possibleMatches = numCards / 2;
+GameBoard.prototype.createCardObjs = function () {
+    this.prepCharacters();
     for (var i = 0; i < numCards; i++) {
         var index = Math.floor((Math.random() * this.characters.length - 1) + 1);
         var character = new Character(this.characters[index]);
         this.characters.splice(index, 1);
         var domObj = this.createDOMObj(character);
+        
+        //TODO moved this from the createDOMObj method. Need to figure it out
+        $("#game-area").append(domObj);
         
         var newCard = new Card(domObj, character, this);
         $(domObj).data(newCard);
@@ -61,16 +73,15 @@ GameBoard.prototype.createCardObjs = function (numCards) {
         //     this.cards[i] = new Card(domObj, character, this);
         //     $(domObj).data(this.cards[i]);
     }
-    console.log(this.cards);
 };
 
 //Game Board Method To Prep Characters
-GameBoard.prototype.prepCharacters = function (numCards) {
+GameBoard.prototype.prepCharacters = function () {
     var localArray = [];
-    for (var x in spells) {
+    for (var x in this.player.characters) {
         localArray.push(x);
     }
-    for (var i = 0; i < (numCards / 2); i++) {
+    for (var i = 0; i < (this.player.cards / 2); i++) {
         var index = Math.floor((Math.random() * localArray.length - 1) + 1);
         this.characters.push(localArray[index], localArray[index]);
         localArray.splice(index, 1);
@@ -88,7 +99,6 @@ GameBoard.prototype.createDOMObj = function (character) {
     $(front).append(frontImg);
     $(back).append(backImg);
     $(card).append(front, back);
-    $("#game-area").append(card);
     
     return card;
 };
@@ -285,6 +295,21 @@ var characters = {
 
 //DOCUMENT READY FOR EVENT HANDLERS
 $(document).ready(function () {
+    $("#start-game").click(function () {
+        //TODO turn off Game Options dialog
+
+        //if two players, make player2
+        if($("input[name = number-of-players]:checked").val() == 2){
+            matchCraft.player2 = new Player($("#p2-name").val(), $("input[name = p2-faction]:checked").val(), 18, 2);
+            matchCraft.player2.createBoard();
+        }
+        
+        //make player1
+        matchCraft.player1 = new Player($("#p1-name").val(), $("input[name = p1-faction]:checked").val(), 18, 1);
+        matchCraft.player2.createBoard();
+    });
+    
+    //TODO local storage
 
 // OLD /////////////////////////////////////////////
     //things to do when the page loads
