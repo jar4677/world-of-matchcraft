@@ -7,28 +7,27 @@ var matchCraft = {
     numPlayers: 1,
     player1: null,
     player2: null,
-    newPlayer: function (x, name, faction, cards) {
-        matchCraft['player' + x] = new Player(name, faction, cards, x);
-    }
 };
 
 //CONSTRUCTOR FOR PLAYERS
-function Player(name, faction, cards, playerNumber){
+function Player(name, faction, numCards, playerNumber) {
     this.name = name;
-    this.faction = characters[faction];
-    this.cards = cards;
-    this.playerNumber = playerNumber;
+    this.faction = factions[faction];
+    this.numCards = numCards;
+    this.playerNumber = 'player' + playerNumber;
     this.board = null;
     
     this.createBoard = function () {
-        this.board = new GameBoard(this);    
+        this.board = new GameBoard(this);
+        this.board.prepCharacters();
+        this.board.createCardObjs();
     };
     
     return this;
 }
 
 //Player Method To Display Stats
-Player.prototype.displayStats = function() {
+Player.prototype.displayStats = function () {
     $("#games-played").text(this.games);
     $("#attempts").text(this.attempts);
     $("#accuracy").text(this.accuracy + "%");
@@ -41,47 +40,16 @@ function GameBoard(player) {
     this.cards = [];
     this.firstCard = null;
     this.secondCard = null;
-    this.possibleMatches = (player.cards / 2);
+    this.possibleMatches = (this.player.numCards / 2);
 }
-
-//Game Board Method To Generate Cards
-GameBoard.prototype.createCardObjs = function () {
-    this.prepCharacters();
-    for (var i = 0; i < numCards; i++) {
-        var index = Math.floor((Math.random() * this.characters.length - 1) + 1);
-        var character = new Character(this.characters[index]);
-        this.characters.splice(index, 1);
-        var domObj = this.createDOMObj(character);
-        
-        //TODO moved this from the createDOMObj method. Need to figure it out
-        $("#game-area").append(domObj);
-        
-        var newCard = new Card(domObj, character, this);
-        $(domObj).data(newCard);
-        this.cards.push($(domObj).data());
-
-        // tried with a closure
-        // var self = this;
-        //
-        // (function () {
-        //     var x = newCard;
-        //     self.cards.push(x);
-        //     $(domObj).data(x);
-        // })();
-
-        // attempted to make the cards directly into the array - encountered anomalies
-        //     this.cards[i] = new Card(domObj, character, this);
-        //     $(domObj).data(this.cards[i]);
-    }
-};
 
 //Game Board Method To Prep Characters
 GameBoard.prototype.prepCharacters = function () {
     var localArray = [];
-    for (var x in this.player.characters) {
+    for (var x in this.player.faction.characters) {
         localArray.push(x);
     }
-    for (var i = 0; i < (this.player.cards / 2); i++) {
+    for (var i = 0; i < (this.player.numCards / 2); i++) {
         var index = Math.floor((Math.random() * localArray.length - 1) + 1);
         this.characters.push(localArray[index], localArray[index]);
         localArray.splice(index, 1);
@@ -92,15 +60,39 @@ GameBoard.prototype.prepCharacters = function () {
 GameBoard.prototype.createDOMObj = function (character) {
     var card = $("<div>").addClass('card');
     var front = $("<div>").addClass('front down');
-    var frontImg = $("<img>").attr('src', "images/" + character.name + ".jpg");
+    var frontImg = $("<img>").attr('src', "images/" + character + ".jpg");
     var back = $("<div>").addClass('back');
-    var backImg = $("<img>").attr('src', "images/horde-back-old.jpg");
+    var backImg = $("<img>").attr('src', "images/" + this.player.faction.name + "-back.jpg");
     
     $(front).append(frontImg);
     $(back).append(backImg);
     $(card).append(front, back);
     
     return card;
+};
+
+//Game Board Method To Generate Cards
+GameBoard.prototype.createCardObjs = function () {
+    for (var i = 0; i < this.player.numCards; i++) {
+        //select random character from array of characters
+        var index = Math.floor((Math.random() * this.characters.length - 1) + 1);
+        var character = this.characters[index];
+        this.characters.splice(index, 1);
+
+        //create card using that character and append it to the correct card area
+        var domObj = this.createDOMObj(character);
+        var cardArea = "#" + this.player.playerNumber + "-card-area";
+        $(cardArea).append(domObj);
+
+        //create card object
+        this.cards[i] = new Card(domObj, character, this);
+        $(domObj).data(this.numCards[i]);
+
+        //old way
+        // var newCard = new Card(domObj, character, this);
+        // $(domObj).data(newCard);
+        // this.cards.push($(domObj).data());
+    }
 };
 
 //Game Board Method To Handle Clicks
@@ -136,7 +128,7 @@ GameBoard.prototype.cardClicked = function () {
                     }, 750);
                     player.games += 1;
                 }
-            } else{
+            } else {
                 setTimeout(function () {
                     board.firstCard.flip();
                     board.secondCard.flip();
@@ -153,7 +145,7 @@ GameBoard.prototype.cardClicked = function () {
 //Game Board Method To Clear Cards
 GameBoard.prototype.clearCards = function () {
     $("#game-area").html("<h1 id='victory'>Victory!!!</h1>");
-    this.cards = [];
+    this.numCards = [];
 };
 
 //Game Board Method To Reset Board
@@ -165,11 +157,11 @@ GameBoard.prototype.reset = function () {
     board.player.displayStats();
     $("#victory").removeClass('victory');
     
-    console.log(board.cards);
-    //flip cards back over
-    for (var i = 0; i < board.cards.length; i++){
-        if (board.cards[i].state == 'up'){
-            board.cards[i].flip();
+    console.log(board.numCards);
+    //flip numCards back over
+    for (var i = 0; i < board.numCards.length; i++) {
+        if (board.numCards[i].state == 'up') {
+            board.numCards[i].flip();
         }
     }
     
@@ -199,7 +191,7 @@ function Card(element, character, board) {
 Card.prototype.flip = function () {
     $(this.element).find('div').toggleClass('down');
     
-    if(this.state == 'down'){
+    if (this.state == 'down') {
         this.state = 'up';
     } else {
         this.state = 'down';
@@ -207,99 +199,127 @@ Card.prototype.flip = function () {
 };
 
 //CONSTRUCTOR FOR CHARACTERS
-function Character(name) {
-    this.name = name;
-    this.spell = spells[this.name];
-    this.emote = emotes[this.name];
-}
+// function Character(name) {
+//     this.name = name;
+//     this.spell = spells[this.name];
+//     this.emote = emotes[this.name];
+// }
 
 //OBJECTS FOR ASSETS
-var characters = {
+var factions = {
     horde: {
-        bayliana: {
-            emote:"http://wow.zamimg.com/wowsounds/539260",
-            spell: "http://wow.zamimg.com/wowsounds/569763"
-        },
-        kiggo: {
-            emote: "http://wow.zamimg.com/wowsounds/541435",
-            spell: "http://wow.zamimg.com/wowsounds/568524"
-        },
-        morit: {
-            emote: "http://wow.zamimg.com/wowsounds/542787",
-            spell: "http://wow.zamimg.com/wowsounds/569138"
-        },
-        eijaal: {
-            emote: "http://wow.zamimg.com/wowsounds/543040",
-            spell: "http://wow.zamimg.com/wowsounds/569357"
-        },
-        kachall: {
-            emote: "http://wow.zamimg.com/wowsounds/541404",
-            spell: "http://wow.zamimg.com/wowsounds/568049"
-        },
-        xail: {
-            emote: "http://wow.zamimg.com/wowsounds/539166",
-            spell: "http://wow.zamimg.com/wowsounds/568585"
-        },
-        kiggar: {
-            emote: "http://wow.zamimg.com/wowsounds/541389",
-            spell: "http://wow.zamimg.com/wowsounds/569423"
-        },
-        meltheir: {
-            emote: "http://wow.zamimg.com/wowsounds/539228",
-            spell: "http://wow.zamimg.com/wowsounds/569675"
-        },
-        kashu: {
-            emote:"http://wow.zamimg.com/wowsounds/541391",
-            spell: "http://wow.zamimg.com/wowsounds/569079"
+        name: 'horde',
+        characters: {
+            bayliana: {
+                name: 'bayliana',
+                emote: "http://wow.zamimg.com/wowsounds/539260",
+                spell: "http://wow.zamimg.com/wowsounds/569763"
+            },
+            kiggo: {
+                name: 'kiggo',
+                emote: "http://wow.zamimg.com/wowsounds/541435",
+                spell: "http://wow.zamimg.com/wowsounds/568524"
+            },
+            morit: {
+                name: 'morit',
+                emote: "http://wow.zamimg.com/wowsounds/542787",
+                spell: "http://wow.zamimg.com/wowsounds/569138"
+            },
+            eijaal: {
+                name: 'eijaal',
+                emote: "http://wow.zamimg.com/wowsounds/543040",
+                spell: "http://wow.zamimg.com/wowsounds/569357"
+            },
+            kachall: {
+                name: 'kachall',
+                emote: "http://wow.zamimg.com/wowsounds/541404",
+                spell: "http://wow.zamimg.com/wowsounds/568049"
+            },
+            xail: {
+                name: 'xail',
+                emote: "http://wow.zamimg.com/wowsounds/539166",
+                spell: "http://wow.zamimg.com/wowsounds/568585"
+            },
+            kiggar: {
+                name: 'kiggar',
+                emote: "http://wow.zamimg.com/wowsounds/541389",
+                spell: "http://wow.zamimg.com/wowsounds/569423"
+            },
+            meltheir: {
+                name: 'meltheir',
+                emote: "http://wow.zamimg.com/wowsounds/539228",
+                spell: "http://wow.zamimg.com/wowsounds/569675"
+            },
+            kashu: {
+                name: 'kashu',
+                emote: "http://wow.zamimg.com/wowsounds/541391",
+                spell: "http://wow.zamimg.com/wowsounds/569079"
+            }
         }
     },
     alliance: {
-        bayliana: {
-            emote:"http://wow.zamimg.com/wowsounds/539260",
-            spell: "http://wow.zamimg.com/wowsounds/569763"
-        },
-        kiggo: {
-            emote: "http://wow.zamimg.com/wowsounds/541435",
-            spell: "http://wow.zamimg.com/wowsounds/568524"
-        },
-        morit: {
-            emote: "http://wow.zamimg.com/wowsounds/542787",
-            spell: "http://wow.zamimg.com/wowsounds/569138"
-        },
-        eijaal: {
-            emote: "http://wow.zamimg.com/wowsounds/543040",
-            spell: "http://wow.zamimg.com/wowsounds/569357"
-        },
-        kachall: {
-            emote: "http://wow.zamimg.com/wowsounds/541404",
-            spell: "http://wow.zamimg.com/wowsounds/568049"
-        },
-        xail: {
-            emote: "http://wow.zamimg.com/wowsounds/539166",
-            spell: "http://wow.zamimg.com/wowsounds/568585"
-        },
-        kiggar: {
-            emote: "http://wow.zamimg.com/wowsounds/541389",
-            spell: "http://wow.zamimg.com/wowsounds/569423"
-        },
-        meltheir: {
-            emote: "http://wow.zamimg.com/wowsounds/539228",
-            spell: "http://wow.zamimg.com/wowsounds/569675"
-        },
-        kashu: {
-            emote:"http://wow.zamimg.com/wowsounds/541391",
-            spell: "http://wow.zamimg.com/wowsounds/569079"
+        name: 'alliance',
+        characters: {
+            bayliana: {
+                name: 'bayliana',
+                emote: "http://wow.zamimg.com/wowsounds/539260",
+                spell: "http://wow.zamimg.com/wowsounds/569763"
+            },
+            kiggo: {
+                name: 'kiggo',
+                emote: "http://wow.zamimg.com/wowsounds/541435",
+                spell: "http://wow.zamimg.com/wowsounds/568524"
+            },
+            morit: {
+                name: 'morit',
+                emote: "http://wow.zamimg.com/wowsounds/542787",
+                spell: "http://wow.zamimg.com/wowsounds/569138"
+            },
+            eijaal: {
+                name: 'eijaal',
+                emote: "http://wow.zamimg.com/wowsounds/543040",
+                spell: "http://wow.zamimg.com/wowsounds/569357"
+            },
+            kachall: {
+                name: 'kachall',
+                emote: "http://wow.zamimg.com/wowsounds/541404",
+                spell: "http://wow.zamimg.com/wowsounds/568049"
+            },
+            xail: {
+                name: 'xail',
+                emote: "http://wow.zamimg.com/wowsounds/539166",
+                spell: "http://wow.zamimg.com/wowsounds/568585"
+            },
+            kiggar: {
+                name: 'kiggar',
+                emote: "http://wow.zamimg.com/wowsounds/541389",
+                spell: "http://wow.zamimg.com/wowsounds/569423"
+            },
+            meltheir: {
+                name: 'meltheir',
+                emote: "http://wow.zamimg.com/wowsounds/539228",
+                spell: "http://wow.zamimg.com/wowsounds/569675"
+            },
+            kashu: {
+                name: 'kashu',
+                emote: "http://wow.zamimg.com/wowsounds/541391",
+                spell: "http://wow.zamimg.com/wowsounds/569079"
+            }
         }
     }
 };
 
 //DOCUMENT READY FOR EVENT HANDLERS
 $(document).ready(function () {
+    $("#options-background").attr('display', 'block');
+
     $("#start-game").click(function () {
+        console.log('clicked');
         //TODO turn off Game Options dialog
+        $("#options-background").attr('display', 'none');
 
         //if two players, make player2
-        if($("input[name = number-of-players]:checked").val() == 2){
+        if ($("input[name = number-of-players]:checked").val() == 2) {
             matchCraft.player2 = new Player($("#p2-name").val(), $("input[name = p2-faction]:checked").val(), 18, 2);
             matchCraft.player2.createBoard();
         }

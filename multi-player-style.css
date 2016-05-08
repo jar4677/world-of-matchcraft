@@ -176,11 +176,11 @@ audio {
 }
 
 /**************** ANIMATION TEST ****************/
-/*#card-area:hover {*/
-    /*left: calc(50% - 1505px);*/
-/*}*/
+#card-area:hover {
+    left: calc(50% - 1505px);
+}
 
-#left-card-area, #right-card-area {
+#player1-card-area, #player2-card-area {
     height: 668px;
     width: 1002px;
     float: left;
