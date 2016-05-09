@@ -7,6 +7,34 @@ var matchCraft = {
     numPlayers: 1,
     player1: null,
     player2: null,
+    activePlayer: null,
+    
+    setActivePlayer: function () {
+        if (this.numPlayers == 2) {
+            if (this.activePlayer == null) {
+                var x = Math.round(Math.random()) + 1;
+                if (x == 1){
+                    this.activePlayer = this.player1;
+                } else {
+                    this.activePlayer = this.player2;
+                }
+            } else {
+                this.activePlayer = this.activePlayer.opponent;
+            }
+        } else {
+            this.activePlayer = this.player1;
+        }
+    },
+
+    slideBoard: function () {
+        if (this.activePlayer == this.player2) {
+            $("#card-area").addClass('player2');
+        } else {
+            $("#card-area").removeClass('player2');
+        }
+    }
+
+
 };
 
 //CONSTRUCTOR FOR PLAYERS
@@ -16,6 +44,7 @@ function Player(name, faction, numCards, playerNumber) {
     this.numCards = numCards;
     this.playerNumber = 'player' + playerNumber;
     this.board = null;
+    this.opponent = null;
     
     this.createBoard = function () {
         this.board = new GameBoard(this);
@@ -40,19 +69,22 @@ function GameBoard(player) {
     this.cards = [];
     this.firstCard = null;
     this.secondCard = null;
+    this.matches = 0;
     this.possibleMatches = (this.player.numCards / 2);
+    
+    return this;
 }
 
 //Game Board Method To Prep Characters
 GameBoard.prototype.prepCharacters = function () {
-    var localArray = [];
+    var tempArray = [];
     for (var x in this.player.faction.characters) {
-        localArray.push(x);
+        tempArray.push(x);
     }
     for (var i = 0; i < (this.player.numCards / 2); i++) {
-        var index = Math.floor((Math.random() * localArray.length - 1) + 1);
-        this.characters.push(localArray[index], localArray[index]);
-        localArray.splice(index, 1);
+        var index = Math.floor((Math.random() * tempArray.length - 1) + 1);
+        this.characters.push(tempArray[index], tempArray[index]);
+        tempArray.splice(index, 1);
     }
 };
 
@@ -78,66 +110,62 @@ GameBoard.prototype.createCardObjs = function () {
         var index = Math.floor((Math.random() * this.characters.length - 1) + 1);
         var character = this.characters[index];
         this.characters.splice(index, 1);
-
+        
         //create card using that character and append it to the correct card area
         var domObj = this.createDOMObj(character);
         var cardArea = "#" + this.player.playerNumber + "-card-area";
         $(cardArea).append(domObj);
-
+        
         //create card object
-        this.cards[i] = new Card(domObj, character, this);
-        $(domObj).data(this.numCards[i]);
-
-        //old way
-        // var newCard = new Card(domObj, character, this);
-        // $(domObj).data(newCard);
-        // this.cards.push($(domObj).data());
+        // this.cards[i] = new Card(domObj, character, this);
+        var card = new Card(domObj, character, this);
+        $(domObj).data(card);
+        
     }
 };
 
 //Game Board Method To Handle Clicks
-GameBoard.prototype.cardClicked = function () {
-    var card = $(this).data();
-    var board = card.board;
-    var player = board.player;
+GameBoard.prototype.cardClicked = function (card) {
+    var self = this;
     
-    if (card.state == 'down' && board.secondCard == null) {
+    //check that card clicked is not down or a third card and that the player is correct
+    if (card.state == 'down' && this.secondCard == null && matchCraft.activePlayer == this.player) {
+        //if not, flip the card
         card.flip();
-        $("#spell_player").attr('src', card.character.spell);
-        $("#spell_player")[0].play();
         
-        if (board.firstCard == null) {
-            board.firstCard = card;
-        } else if (board.secondCard == null) {
-            board.secondCard = card;
-            player.attempts++;
-            $("#attempts").text(player.attempts);
-            
+        //if it is the first card clicked this round set it as such
+        if (this.firstCard == null) {
+            this.firstCard = card;
+            //if it is the second card clicked this round set it as such and...
+        } else if (this.secondCard == null) {
+            this.secondCard = card;
+
             //check for match
-            if (board.firstCard.character.name == board.secondCard.character.name) {
-                player.matches++;
+            if (this.firstCard.character == this.secondCard.character) {
+                this.matches++;
                 
-                $("#emote_player").attr('src', card.character.emote);
-                $("#emote_player")[0].play();
-                board.firstCard = null;
-                board.secondCard = null;
+                this.firstCard = null;
+                this.secondCard = null;
                 
-                if (player.matches == board.possibleMatches) {
+                //check for win
+                if (this.matches == this.possibleMatches) {
                     setTimeout(function () {
-                        $("#victory").addClass('victory');
+                        $("#victory").show();
                     }, 750);
-                    player.games += 1;
-                }
+                } 
+
             } else {
+                matchCraft.setActivePlayer();
                 setTimeout(function () {
-                    board.firstCard.flip();
-                    board.secondCard.flip();
-                    board.firstCard = null;
-                    board.secondCard = null;
+                    self.firstCard.flip();
+                    self.secondCard.flip();
+                    self.firstCard = null;
+                    self.secondCard = null;
                 }, 1250);
+                setTimeout(function () {
+                    matchCraft.slideBoard();
+                }, 2150);
             }
-            player.accuracy = Math.round(100 * (player.matches / player.attempts));
-            $("#accuracy").text(player.accuracy + "%");
         }
     }
 };
@@ -156,8 +184,7 @@ GameBoard.prototype.reset = function () {
     board.player.accuracy = 0;
     board.player.displayStats();
     $("#victory").removeClass('victory');
-    
-    console.log(board.numCards);
+
     //flip numCards back over
     for (var i = 0; i < board.numCards.length; i++) {
         if (board.numCards[i].state == 'up') {
@@ -197,13 +224,6 @@ Card.prototype.flip = function () {
         this.state = 'down';
     }
 };
-
-//CONSTRUCTOR FOR CHARACTERS
-// function Character(name) {
-//     this.name = name;
-//     this.spell = spells[this.name];
-//     this.emote = emotes[this.name];
-// }
 
 //OBJECTS FOR ASSETS
 var factions = {
@@ -311,22 +331,40 @@ var factions = {
 
 //DOCUMENT READY FOR EVENT HANDLERS
 $(document).ready(function () {
-    $("#options-background").attr('display', 'block');
-
+    $("#options-background").css('display', 'block');
+    
+    //click handler to start the game
     $("#start-game").click(function () {
-        console.log('clicked');
-        //TODO turn off Game Options dialog
-        $("#options-background").attr('display', 'none');
-
-        //if two players, make player2
-        if ($("input[name = number-of-players]:checked").val() == 2) {
-            matchCraft.player2 = new Player($("#p2-name").val(), $("input[name = p2-faction]:checked").val(), 18, 2);
-            matchCraft.player2.createBoard();
-        }
+        //turn off Game Options dialog
+        $("#options-background").css('display', 'none');
         
         //make player1
         matchCraft.player1 = new Player($("#p1-name").val(), $("input[name = p1-faction]:checked").val(), 18, 1);
-        matchCraft.player2.createBoard();
+        matchCraft.player1.opponent = matchCraft.player1;
+        matchCraft.player1.createBoard();
+        
+        //if two players, make player2
+        if ($("input[name = number-of-players]:checked").val() == 2) {
+            matchCraft.numPlayers = 2;
+            matchCraft.player2 = new Player($("#p2-name").val(), $("input[name = p2-faction]:checked").val(), 18, 2);
+            matchCraft.player2.opponent = matchCraft.player1;
+            matchCraft.player1.opponent = matchCraft.player2;
+            matchCraft.player2.createBoard();
+        }
+
+        matchCraft.setActivePlayer();
+        matchCraft.slideBoard();
+    });
+    
+    //click handlers for number of players radio buttons
+    $("input[name = number-of-players]").change(function () {
+        $("#p2-options").toggle();
+    });
+    
+    //delegated click handler for cards
+    $("#card-area").on("click", ".card", function () {
+        var card = $(this).data();
+        card.board.cardClicked(card);
     });
     
     //TODO local storage

@@ -13,7 +13,7 @@ body {
 
 /*Game Options Window*/
 #options-background {
-    display: none;
+    /*display: none;*/
     position: fixed;
     top: 0;
     left: 0;
@@ -132,6 +132,7 @@ audio {
     padding: 13px;
     position: relative;
     display: inline-block;
+    background-color: #45260C;
     box-sizing: border-box;
     box-shadow: 4px 4px 4px black;
 }
@@ -170,13 +171,15 @@ audio {
     width: 2004px;
     position: absolute;
     top: 160px;
-    left: calc(50% - 502px);
     transition-duration: 1.5s;
     transition-timing-function: cubic-bezier(0.6, 0.3, 0.5, 1.1);
 }
 
-/**************** ANIMATION TEST ****************/
-#card-area:hover {
+.player1 {
+    left: calc(50% - 502px);
+}
+
+.player2 {
     left: calc(50% - 1505px);
 }
 
@@ -184,7 +187,6 @@ audio {
     height: 668px;
     width: 1002px;
     float: left;
-/*** FLEXBOX ***/
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -198,7 +200,6 @@ audio {
     width: 134px;
     margin: 10px;
     position: relative;
-    box-shadow: 3px 3px 3px black;
     border-radius: 5px;
 }
 
@@ -207,23 +208,22 @@ audio {
 }
 
 .front img, .back img {
-    height: 189px;
-    width: 134px;
+    height: 190px;
     position: absolute;
     top: 0;
     left: 0;
     border-radius: 5px;
+    box-shadow: 3px 3px 3px black;
+}
+
+.front, .back {
     backface-visibility: hidden;
-    transition-duration: 1s;
+    transition-duration: .75s;
     transition-timing-function: linear;
 }
 
 .down {
     transform: rotateY(180deg);
-}
-
-.right-cards {
-    background-color: blue;
 }
 
 /*FOREGROUND LAYER*/
@@ -238,12 +238,10 @@ audio {
 
 .foreground-left {
     left: 0;
-    /*border-right: 4px outset #644014;*/
 }
 
 .foreground-right {
     right: 0;
-    /*border-left: 4px outset #644014;*/
 }
 
 .foreground-center-top {
@@ -254,7 +252,43 @@ audio {
     left: calc(50% - 501px);
     background-image: url("images/title.png");
     box-sizing: border-box;
-    /*border-bottom: 4px outset #644014;*/
+}
+
+.foreground-center-middle {
+    height: 668px;
+    width: 1002px;
+    position: fixed;
+    top: 160px;
+    left: calc(50% - 501px);
+    display: none;
+}
+
+.victory-background {
+    height: 100%;
+    width: 100%;
+    background-color: #45260C;
+    opacity: 0.6;
+}
+
+#victory img {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%)rotateZ(-7deg);
+    opacity: 1;
+}
+
+#victory .button {
+    position: absolute;
+    bottom: 40px;
+}
+
+#replay {
+    left: 40px;
+}
+
+#restart {
+    right: 40px;
 }
 
 .foreground-center-bottom {
@@ -264,7 +298,6 @@ audio {
     top: 828px;
     left: calc(50% - 501px);
     box-sizing: border-box;
-    /*border-top: 4px outset #644014;*/
 }
 
 /********** ART ASSET PLACEMENT **********/
