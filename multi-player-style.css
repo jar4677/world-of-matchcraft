@@ -1,0 +1,341 @@
+/*Basic Setup*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    box-sizing: border-box;
+    background-color: black;
+    color: #E4B75C;
+    font-family: serif;
+}
+
+/*Game Options Window*/
+#options-background {
+    /*display: none;*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#options-window {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    background-color: #45260C;
+    border: 4px outset #644014;
+    font-size: 20px;
+    text-align: center;
+    box-shadow: 8px 8px 16px black;
+}
+
+/*game options heading*/
+#game-options {
+    width: 100%;
+    margin: 20px 0;
+}
+
+#options-window h4 {
+    margin: 14px 0;
+}
+
+#player-options {
+    display: flex;
+    align-items: center;
+}
+
+#p1-options, #p2-options {
+    width: 200px;
+    float: left;
+    margin: 20px;
+}
+
+#p2-options {
+    display: none;
+}
+
+#start-game {
+    clear: both;
+    margin-bottom: 20px;
+}
+
+/*div to hold the labels 'Player 1' and 'Player 2' and only show when 2 players*/
+#players {
+    width: 310px;
+    position: absolute;
+    left: 80px;
+    top: 72px;
+}
+
+.p1 {
+    float: left;
+}
+
+.p2 {
+    float: right;
+}
+
+.name-input{
+    font-size: 18px;
+}
+
+.faction{
+    width: 50%;
+    float: left;
+}
+
+.faction-selection-img {
+    height: 100px;
+}
+
+/*Settings Window*/
+#settings-background {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+audio {
+    display: none;
+}
+
+.dialog-open{
+    display: block !important;
+}
+
+#settings-window{
+    position: absolute;
+    height: 385px;
+    width: 220px;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    background-color: #45260C;
+    padding: 40px;
+    border: 4px outset #644014;
+    font-size: 20px;
+    text-align: center;
+    box-shadow: 8px 8px 16px black;
+}
+
+/*also for reset and new game*/
+.button {
+    cursor: pointer;
+    border: 4px outset #644014;
+    padding: 13px;
+    position: relative;
+    display: inline-block;
+    background-color: #45260C;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 4px black;
+}
+
+.button:hover {
+    background-color: rgb(20, 20, 20);
+}
+
+.button:active {
+    box-shadow: 1px 1px 1px black;
+}
+
+/*BACKGROUND LAYER*/
+
+.background-layer {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+}
+
+#game-board-image {
+    height: 668px;
+    width: 1002px;
+    position: relative;
+    top: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: url("images/azeroth-map.jpg");
+    box-sizing: border-box;
+    /*border: 4px inset #644014;*/
+    box-shadow: 4px 4px 10px black inset;
+}
+
+#card-area {
+    height: 668px;
+    width: 2004px;
+    position: absolute;
+    top: 160px;
+    transition-duration: 1.5s;
+    transition-timing-function: cubic-bezier(0.6, 0.3, 0.5, 1.1);
+}
+
+.player1 {
+    left: calc(50% - 502px);
+}
+
+.player2 {
+    left: calc(50% - 1505px);
+}
+
+#player1-card-area, #player2-card-area {
+    height: 668px;
+    width: 1002px;
+    float: left;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+/****** CARDS ******/
+.card {
+    height: 189px;
+    width: 134px;
+    margin: 10px;
+    position: relative;
+    border-radius: 5px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.front img, .back img {
+    height: 190px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px black;
+}
+
+.front, .back {
+    backface-visibility: hidden;
+    transition-duration: .75s;
+    transition-timing-function: linear;
+}
+
+.down {
+    transform: rotateY(180deg);
+}
+
+/*FOREGROUND LAYER*/
+
+.foreground-left, .foreground-right {
+    height: 668px;
+    width: calc(50% - 501px);
+    position: fixed;
+    top: 160px;
+    box-sizing: border-box;
+}
+
+.foreground-left {
+    left: 0;
+}
+
+.foreground-right {
+    right: 0;
+}
+
+.foreground-center-top {
+    height: 160px;
+    width: 1002px;
+    position: fixed;
+    top: 0;
+    left: calc(50% - 501px);
+    background-image: url("images/title.png");
+    box-sizing: border-box;
+}
+
+.foreground-center-middle {
+    height: 668px;
+    width: 1002px;
+    position: fixed;
+    top: 160px;
+    left: calc(50% - 501px);
+    display: none;
+}
+
+.victory-background {
+    height: 100%;
+    width: 100%;
+    background-color: #45260C;
+    opacity: 0.6;
+}
+
+#victory img {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%)rotateZ(-7deg);
+    opacity: 1;
+}
+
+#victory .button {
+    position: absolute;
+    bottom: 40px;
+}
+
+#replay {
+    left: 40px;
+}
+
+#restart {
+    right: 40px;
+}
+
+.foreground-center-bottom {
+    height: calc(100% - 828px);
+    width: 1002px;
+    position: fixed;
+    top: 828px;
+    left: calc(50% - 501px);
+    box-sizing: border-box;
+}
+
+/********** ART ASSET PLACEMENT **********/
+
+#left-crest {
+    height: 300px;
+    position: absolute;
+    top: -160px;
+    right: -25px;
+    transform: rotateZ(-9deg);
+    border-bottom-right-radius: 120px 185px;
+}
+
+#right-crest {
+    height: 269px;
+    position: absolute;
+    top: -154px;
+    left: -17px;
+    transform: rotateZ(9deg);
+    border-bottom-left-radius: 75px 106px;
+}
+
+#left-hero {
+    width: 420px;
+    position: absolute;
+    right: -5px;
+    bottom: calc((100vh - 828px) * -1);
+}
+
+#right-hero {
+    width: 325px;
+    position: absolute;
+    left: 15px;
+    bottom: calc((100vh - 828px) * -1);
+}
+
+/********** BACKGROUND COLOR **********/
+
+.background-layer, .foreground-left, .foreground-center-top, .foreground-right {
+    background-color: #45260C;
+}

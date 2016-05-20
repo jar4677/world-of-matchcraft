@@ -1,0 +1,293 @@
+/*Basic Setup*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    box-sizing: border-box;
+    background-color: black;
+    color: lightgrey;
+    font-family: serif;
+}
+
+/*Settings Window*/
+#settings-background{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.settings-open{
+    display: block !important;
+}
+
+#settings-window{
+    position: absolute;
+    height: 335px;
+    width: 220px;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    background-color: grey;
+    padding: 40px;
+    border: 4px solid whitesmoke;
+    font-size: 20px;
+    opacity: 1;
+}
+
+/*also for reset*/
+.button {
+    cursor: pointer;
+    border: 3px outset whitesmoke;
+    padding: 13px;
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.button:hover {
+    background-color: rgb(20, 20, 20);
+}
+
+.button:active {
+    border: 1px outset whitesmoke;
+}
+
+.wrapper {
+    width: 1200px;
+    margin: auto;
+}
+
+/*Header and Elements*/
+#header {
+    width: 100%;
+    height: 160px;
+    position: relative;
+}
+
+.logo {
+    height: 301px;
+    position: absolute;
+    top: -11px;
+    left: -61px;
+    display: inline-block;
+    transform: rotateZ(-5deg);
+}
+
+#title {
+    display: inline-block;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 90px;
+}
+
+.links {
+    display: inline-block;
+    float: right;
+    text-align: right;
+    font-size: 30px;
+}
+
+.links li {
+    list-style-type: none;
+    margin: 28px 55px;
+}
+
+.links a {
+    text-decoration: none;
+    color: lightgrey;
+}
+
+.links li:hover a {
+    color: gold;
+}
+
+audio {
+    display: none;
+}
+
+/*Main Body Area*/
+main {
+    width: 96%;
+    margin: auto;
+}
+
+/*Game Board Area*/
+.game-area {
+    width: 1002px;
+    height: 668px;
+    margin: 20px auto;
+    background-image: url("images/azeroth-map.jpg");
+    border: 4px outset darkgrey;
+    box-shadow: 4px 4px 20px 6px black;
+    box-sizing: border-box;
+    position: relative;
+}
+
+h1.win {
+    display: inline-block;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateZ(15deg);
+    font-size: 140px;
+}
+
+#victory {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateZ(16deg);
+    font-size: 150px;
+    border: 9px outset #2D1805;
+    background-image: url("images/victory-box.jpg");
+    padding: 40px;
+    box-shadow: 7px 7px 25px 10px black;
+    color: #6B0D0D;
+}
+
+.victory {
+    display: inline-block !important;
+}
+
+/*Cards*/
+.card {
+    float: left;
+    width: 134px;
+    height: 189px;
+    margin: 16px 15px;
+    position: relative;
+}
+
+.front, .back {
+    width: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    transition-duration: 1s;
+}
+
+.down {
+    transform: rotateY(180deg);
+}
+
+.card img {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 4px 4px 4px black;
+    border: 3px outset #636262;
+    box-sizing: border-box;
+}
+
+/*@keyframes breathe {*/
+    /*0%{transform: scale(1);}*/
+    /*50%{transform: scale(1.05);}*/
+    /*100%{transform: scale(1);}*/
+/*}*/
+
+.card:hover {
+    transform: scale(1.025);
+    /*animation-name: breathe;*/
+    /*animation-duration: 1s;*/
+    /*animation-fill-mode: none;*/
+    /*animation-timing-function: linear;*/
+    /*animation-iteration-count: infinite;*/
+}
+
+/*Score Board Area*/
+.score-board{
+    clear: both;
+    width: 1002px;
+    height: 80px;
+    margin: auto;
+    box-sizing: border-box;
+    padding-top: 10px;
+}
+
+.sb-section {
+    width: 25%;
+    float: left;
+    text-align: center;
+    box-sizing: border-box;
+    font-size: 25px;
+}
+
+/*About Page*/
+.container {
+    width: 1800px;
+    margin: auto;
+}
+
+.container #header{
+    width: 1200px;
+    margin: auto;
+}
+
+#description {
+    text-align: center;
+}
+
+#description p {
+    font-size: 26px;
+}
+
+#line-up li{
+    list-style-type: none;
+}
+
+#line-up figure{
+    width: 430px;
+    float: left;
+    margin: 30px 73px;
+    text-align: center;
+}
+
+#line-up .front{
+    position: static;
+    margin-bottom: 15px;
+    /*box-shadow: 6px 6px 6px black;*/
+}
+
+#line-up figcaption {
+    font-size: 26px;
+}
+
+#line-up figure:hover {
+    transform: scale(1.025);
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+}
+
+footer figure {
+    display: inline-block;
+    width: 200px;
+}
+
+footer img {
+    width: 100%;
+    border: 4px outset grey;
+    box-sizing: border-box;
+    box-shadow: 6px 6px 6px black;
+}
+
+footer figcaption {
+    font-size: 24px;
+    margin: 10px;
+    text-align: center;
+}
+
+footer a{
+    text-decoration: none;
+    color: lightgrey;
+}
+
