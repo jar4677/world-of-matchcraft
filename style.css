@@ -35,6 +35,7 @@ body {
     font-size: 20px;
     text-align: center;
     box-shadow: 8px 8px 16px black;
+    padding: 12px;
 }
 
 /*game options heading*/
@@ -43,7 +44,7 @@ body {
     margin: 20px 0;
 }
 
-#options-window h4 {
+#options-window h2 {
     margin: 14px 0;
 }
 
@@ -87,8 +88,8 @@ body {
 #players {
     width: 310px;
     position: absolute;
-    left: 80px;
-    top: 72px;
+    left: 100px;
+    top: 110px;
 }
 
 .p1 {
@@ -99,12 +100,22 @@ body {
     float: right;
 }
 
+.radio {
+    margin-left: 8px;
+}
+
 .name-input{
+    margin-left: 8px;
+    margin-bottom: 12px;
     font-size: 18px;
     font-family: serif;
     font-weight: bold;
+    text-align: center;
     color: #E4B75C;
-    background-color: #fffabe;
+    border: none;
+    border-bottom: 2px solid #E4B75C;
+    border-radius: 0;
+    background-color: #45260C;
 }
 
 .faction{
@@ -160,6 +171,7 @@ audio {
     background-color: #45260C;
     box-sizing: border-box;
     box-shadow: 4px 4px 4px black;
+    border-radius: 10px;
 }
 
 .button:hover {
@@ -309,10 +321,14 @@ audio {
 }
 
 #replay {
+    position: absolute;
+    top: 15px;
     left: 40px;
 }
 
 #restart {
+    position: absolute;
+    top: 15px;
     right: 40px;
 }
 
@@ -346,16 +362,15 @@ audio {
 }
 
 #left-hero {
-    width: 420px;
+    width: 300px;
     position: absolute;
     right: -5px;
     bottom: calc((100vh - 828px) * -1);
 }
 
 #right-hero {
-    width: 325px;
+    width: 230px;
     position: absolute;
-    left: 15px;
     bottom: calc((100vh - 828px) * -1);
 }
 

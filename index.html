@@ -17,12 +17,13 @@
     </div>
 </div>
 
-<div class="foreground-center-top"></div>
+<div class="foreground-center-top">
+    <div class="button" id="replay">Replay</div>
+    <div class="button" id="restart">Restart</div>
+</div>
 <div class="foreground-center-middle" id="victory">
     <div class="victory-background"></div>
     <img src="images/victory.png" alt="victory">
-    <div class="button" id="replay">Replay</div>
-    <div class="button" id="restart">Restart</div>
 </div>
 <div class="foreground-center-bottom"></div>
 <div class="foreground-left">
@@ -38,11 +39,11 @@
 <div id="options-background">
     <div id="options-window">
         <div id="game-options">
-            <h4>Game Options</h4>
+            <h2>Game Options</h2>
             <h5>How many players?
-                <input type="radio" name="number-of-players" id="one-player" value="1" checked>
+                <input type="radio" class="radio" name="number-of-players" id="one-player" value="1" checked>
                 <label for="one-player">1</label>
-                <input type="radio" name="number-of-players" id="two-player" value="2">
+                <input type="radio" class="radio" name="number-of-players" id="two-player" value="2">
                 <label for="two-player">2</label>
             </h5>
         </div>
@@ -53,12 +54,12 @@
                 <div class="faction">
                     <label for="p1-faction-horde"><img src="images/horde-crest.png" alt="horde"
                                                        class="faction-selection-img"><p>Horde</p></label>
-                    <input type="radio" name="p1-faction" id="p1-faction-horde" value="horde" checked>
+                    <input type="radio" class="radio" name="p1-faction" id="p1-faction-horde" value="horde" checked>
                 </div>
                 <div class="faction">
                     <label for="p1-faction-alliance"><img src="images/alliance-crest.png" alt="alliance"
                                                           class="faction-selection-img"><p>Alliance</p></label>
-                    <input type="radio" name="p1-faction" id="p1-faction-alliance" value="alliance">
+                    <input type="radio" class="radio" name="p1-faction" id="p1-faction-alliance" value="alliance">
                 </div>
                 <label for="p1-num-cards">How many cards?</label>
                 <select class="num-cards" name="p1-num-cards" id="p1-num-cards">
@@ -79,12 +80,12 @@
                 <div class="faction">
                     <label for="p2-faction-horde"><img src="images/horde-crest.png" alt="horde"
                                                        class="faction-selection-img"><p>Horde</p></label>
-                    <input type="radio" name="p2-faction" id="p2-faction-horde" value="horde">
+                    <input type="radio" class="radio" name="p2-faction" id="p2-faction-horde" value="horde">
                 </div>
                 <div class="faction">
                     <label for="p2-faction-alliance"><img src="images/alliance-crest.png" alt="alliance"
                                                           class="faction-selection-img"><p>Alliance</p></label>
-                    <input type="radio" name="p2-faction" id="p2-faction-alliance" value="alliance" checked>
+                    <input type="radio" class="radio" name="p2-faction" id="p2-faction-alliance" value="alliance" checked>
                 </div>
                 <label for="p2-num-cards">How many cards?</label>
                 <select class="num-cards" name="p2-num-cards" id="p2-num-cards">
