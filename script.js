@@ -117,7 +117,6 @@ Player.prototype.displayStats = function () {
 function GameBoard(player) {
     this.player = player;
     this.characters = [];
-    this.cards = [];
     this.firstCard = null;
     this.secondCard = null;
     this.matches = 0;
@@ -217,7 +216,6 @@ GameBoard.prototype.cardClicked = function (card) {
                 }
                 
             } else {
-                matchCraft.setActivePlayer();
                 setTimeout(function () {
                     self.firstCard.flip();
                     self.secondCard.flip();
@@ -225,7 +223,7 @@ GameBoard.prototype.cardClicked = function (card) {
                     self.secondCard = null;
                 }, 1250);
                 setTimeout(function () {
-                    matchCraft.slideBoard();
+                    matchCraft.setActivePlayer();
                 }, 2150);
             }
         }
