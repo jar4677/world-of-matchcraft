@@ -7,12 +7,129 @@
 body {
     box-sizing: border-box;
     background-color: black;
-    color: lightgrey;
+    color: #E4B75C;
     font-family: serif;
 }
 
+:focus {
+    outline: none;
+}
+
+/*Game Options Window*/
+#options-background {
+    /*display: none;*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#options-window {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    background-color: #45260C;
+    border: 4px outset #644014;
+    font-size: 20px;
+    text-align: center;
+    box-shadow: 8px 8px 16px black;
+    padding: 12px;
+}
+
+/*game options heading*/
+#game-options {
+    width: 100%;
+    margin: 20px 0;
+}
+
+#options-window h2 {
+    margin: 14px 0;
+}
+
+#player-options {
+    display: flex;
+    align-items: center;
+}
+
+#p1-options, #p2-options {
+    width: 200px;
+    float: left;
+    margin: 20px;
+}
+
+#p2-options {
+    display: none;
+}
+
+.num-cards {
+    margin-left: 8px;
+    font-size: 18px;
+    font-family: serif;
+    font-weight: bold;
+    color: #E4B75C;
+    text-align: right;
+    border: none;
+    border-bottom: 2px solid #E4B75C;
+    border-radius: 0;
+    background-color: #45260C;
+    -webkit-appearance: none;
+    appearance: none;
+
+}
+
+#start-game {
+    clear: both;
+    margin-bottom: 20px;
+}
+
+/*div to hold the labels 'Player 1' and 'Player 2' and only show when 2 players*/
+#players {
+    width: 310px;
+    position: absolute;
+    left: 100px;
+    top: 110px;
+}
+
+.p1 {
+    float: left;
+}
+
+.p2 {
+    float: right;
+}
+
+.radio {
+    margin-left: 8px;
+}
+
+.name-input{
+    margin-left: 8px;
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-family: serif;
+    font-weight: bold;
+    text-align: center;
+    color: #E4B75C;
+    border: none;
+    border-bottom: 2px solid #E4B75C;
+    border-radius: 0;
+    background-color: #45260C;
+}
+
+.faction{
+    width: 50%;
+    float: left;
+    margin-bottom: 10px;
+}
+
+.faction-selection-img {
+    height: 100px;
+}
+
 /*Settings Window*/
-#settings-background{
+#settings-background {
     display: none;
     position: fixed;
     top: 0;
@@ -21,32 +138,40 @@ body {
     width: 100%;
 }
 
-.settings-open{
+audio {
+    display: none;
+}
+
+.dialog-open{
     display: block !important;
 }
 
 #settings-window{
     position: absolute;
-    height: 335px;
+    height: 385px;
     width: 220px;
     top: 50%;
     right: 50%;
     transform: translate(50%, -50%);
-    background-color: grey;
+    background-color: #45260C;
     padding: 40px;
-    border: 4px solid whitesmoke;
+    border: 4px outset #644014;
     font-size: 20px;
-    opacity: 1;
+    text-align: center;
+    box-shadow: 8px 8px 16px black;
 }
 
-/*also for reset*/
+/*also for reset and new game*/
 .button {
     cursor: pointer;
-    border: 3px outset whitesmoke;
+    border: 4px outset #644014;
     padding: 13px;
     position: relative;
     display: inline-block;
+    background-color: #45260C;
     box-sizing: border-box;
+    box-shadow: 4px 4px 4px black;
+    border-radius: 10px;
 }
 
 .button:hover {
@@ -54,240 +179,203 @@ body {
 }
 
 .button:active {
-    border: 1px outset whitesmoke;
+    box-shadow: 1px 1px 1px black;
 }
 
-.wrapper {
-    width: 1200px;
-    margin: auto;
+/*BACKGROUND LAYER*/
+
+.background-layer {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
 }
 
-/*Header and Elements*/
-#header {
-    width: 100%;
-    height: 160px;
+#game-board-image {
+    height: 568px;
     position: relative;
-}
-
-.logo {
-    height: 301px;
-    position: absolute;
-    top: -11px;
-    left: -61px;
-    display: inline-block;
-    transform: rotateZ(-5deg);
-}
-
-#title {
-    display: inline-block;
-    position: relative;
-    top: 50%;
+    top: 125px;
     left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 90px;
-}
-
-.links {
-    display: inline-block;
-    float: right;
-    text-align: right;
-    font-size: 30px;
-}
-
-.links li {
-    list-style-type: none;
-    margin: 28px 55px;
-}
-
-.links a {
-    text-decoration: none;
-    color: lightgrey;
-}
-
-.links li:hover a {
-    color: gold;
-}
-
-audio {
-    display: none;
-}
-
-/*Main Body Area*/
-main {
-    width: 96%;
-    margin: auto;
-}
-
-/*Game Board Area*/
-.game-area {
-    width: 1002px;
-    height: 668px;
-    margin: 20px auto;
-    background-image: url("images/azeroth-map.jpg");
-    border: 4px outset darkgrey;
-    box-shadow: 4px 4px 20px 6px black;
+    transform: translateX(-50%);
+    background: url("images/azeroth-map.jpg");
     box-sizing: border-box;
-    position: relative;
+    /*border: 4px inset #644014;*/
+    box-shadow: 4px 4px 10px black inset;
 }
 
-h1.win {
-    display: inline-block;
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotateZ(15deg);
-    font-size: 140px;
-}
-
-#victory {
-    display: none;
+#card-area {
+    height: 568px;
+    width: 1704px;
     position: absolute;
-    z-index: 1;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotateZ(16deg);
-    font-size: 150px;
-    border: 9px outset #2D1805;
-    background-image: url("images/victory-box.jpg");
-    padding: 40px;
-    box-shadow: 7px 7px 25px 10px black;
-    color: #6B0D0D;
+    top: 125px;
+    transition-duration: 1.5s;
+    transition-timing-function: cubic-bezier(0.6, 0.3, 0.5, 1.1);
 }
 
-.victory {
-    display: inline-block !important;
+.player1 {
+    left: calc(50% - 426px);
 }
 
-/*Cards*/
-.card {
+.player2 {
+    left: calc(50% - 1278px);
+}
+
+#player1-card-area, #player2-card-area {
+    height: 100%;
+    width: 50%;
     float: left;
-    width: 134px;
-    height: 189px;
-    margin: 16px 15px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+/****** CARDS ******/
+.card {
+    height: 150px;
+    width: 102px;
+    margin: 10px;
     position: relative;
+    border-radius: 5px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.front img, .back img {
+    height: 150px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px black;
 }
 
 .front, .back {
-    width: 100%;
-    position: absolute;
-    backface-visibility: hidden;
-    transition-duration: 1s;
+    /*backface-visibility: hidden;*/
+    transition-duration: .75s;
+    transition-timing-function: linear;
 }
 
 .down {
     transform: rotateY(180deg);
 }
 
-.card img {
+/*FOREGROUND LAYER*/
+
+.foreground-left, .foreground-right {
+    height: 568px;
+    width: calc(50% - 426px);
+    position: fixed;
+    top: 125px;
+    box-sizing: border-box;
+}
+
+.foreground-left {
+    left: 0;
+}
+
+.foreground-right {
+    right: 0;
+}
+
+.foreground-center-top {
+    height: 125px;
+    width: 852px;
+    position: fixed;
+    top: 0;
+    left: calc(50% - 426px);
+    /*background-image: url("images/title.png");*/
+    box-sizing: border-box;
+}
+
+.foreground-center-middle {
+    height: 568px;
+    width: 852px;
+    position: fixed;
+    top: 160px;
+    left: calc(50% - 426px);
+    display: none;
+}
+
+.victory-background {
+    height: 100%;
     width: 100%;
-    border-radius: 5px;
-    box-shadow: 4px 4px 4px black;
-    border: 3px outset #636262;
+    background-color: #45260C;
+    opacity: 0.6;
+}
+
+#victory img {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%)rotateZ(-7deg);
+    opacity: 1;
+}
+
+#victory .button {
+    position: absolute;
+    bottom: 40px;
+}
+
+#replay {
+    position: absolute;
+    top: 15px;
+    left: 40px;
+}
+
+#restart {
+    position: absolute;
+    top: 15px;
+    right: 40px;
+}
+
+.foreground-center-bottom {
+    height: calc(100% - 693px);
+    width: 852px;
+    position: fixed;
+    top: 693px;
+    left: calc(50% - 426px);
     box-sizing: border-box;
 }
 
-/*@keyframes breathe {*/
-    /*0%{transform: scale(1);}*/
-    /*50%{transform: scale(1.05);}*/
-    /*100%{transform: scale(1);}*/
-/*}*/
+/********** ART ASSET PLACEMENT **********/
 
-.card:hover {
-    transform: scale(1.025);
-    /*animation-name: breathe;*/
-    /*animation-duration: 1s;*/
-    /*animation-fill-mode: none;*/
-    /*animation-timing-function: linear;*/
-    /*animation-iteration-count: infinite;*/
+#left-crest {
+    height: 200px;
+    position: absolute;
+    top: -106px;
+    right: -47px;
+    transform: rotateZ(-9deg);
+    border-bottom-right-radius: 120px 185px;
 }
 
-/*Score Board Area*/
-.score-board{
-    clear: both;
-    width: 1002px;
-    height: 80px;
-    margin: auto;
-    box-sizing: border-box;
-    padding-top: 10px;
+#right-crest {
+    height: 165px;
+    position: absolute;
+    top: -91px;
+    left: -26px;
+    transform: rotateZ(9deg);
+    border-bottom-left-radius: 75px 106px;
 }
 
-.sb-section {
-    width: 25%;
-    float: left;
-    text-align: center;
-    box-sizing: border-box;
-    font-size: 25px;
+#left-hero {
+    width: 221px;
+    position: absolute;
+    right: -30px;
+    bottom: calc((100vh - 693px) * -1);
 }
 
-/*About Page*/
-.container {
-    width: 1800px;
-    margin: auto;
+#right-hero {
+    width: 170px;
+    position: absolute;
+    bottom: calc((100vh - 693px) * -1);
+    left: -20px;
 }
 
-.container #header{
-    width: 1200px;
-    margin: auto;
-}
+/********** BACKGROUND COLOR **********/
 
-#description {
-    text-align: center;
+.background-layer, .foreground-left, .foreground-center-top, .foreground-right {
+    background-color: black;
 }
-
-#description p {
-    font-size: 26px;
-}
-
-#line-up li{
-    list-style-type: none;
-}
-
-#line-up figure{
-    width: 430px;
-    float: left;
-    margin: 30px 73px;
-    text-align: center;
-}
-
-#line-up .front{
-    position: static;
-    margin-bottom: 15px;
-    /*box-shadow: 6px 6px 6px black;*/
-}
-
-#line-up figcaption {
-    font-size: 26px;
-}
-
-#line-up figure:hover {
-    transform: scale(1.025);
-}
-
-footer {
-    width: 100%;
-    text-align: center;
-}
-
-footer figure {
-    display: inline-block;
-    width: 200px;
-}
-
-footer img {
-    width: 100%;
-    border: 4px outset grey;
-    box-sizing: border-box;
-    box-shadow: 6px 6px 6px black;
-}
-
-footer figcaption {
-    font-size: 24px;
-    margin: 10px;
-    text-align: center;
-}
-
-footer a{
-    text-decoration: none;
-    color: lightgrey;
-}
-

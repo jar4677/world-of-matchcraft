@@ -2,18 +2,24 @@
  * Created by jar4677 on 4/29/16.
  */
 
-//TODO MAIN GAME OBJECT
+/**
+ * matchCraft - main game object
+ * @type {{numPlayers: number, player1: null, player2: null, activePlayer: null, setActivePlayer: matchCraft.setActivePlayer, slideBoard: matchCraft.slideBoard, reset: matchCraft.reset}}
+ */
 var matchCraft = {
     numPlayers: 1,
     player1: null,
     player2: null,
     activePlayer: null,
     
+    /**
+     * matchCraft.setActivePlayer
+     */
     setActivePlayer: function () {
         if (this.numPlayers == 2) {
             if (this.activePlayer == null) {
                 var x = Math.round(Math.random()) + 1;
-                if (x == 1){
+                if (x == 1) {
                     this.activePlayer = this.player1;
                 } else {
                     this.activePlayer = this.player2;
@@ -21,23 +27,62 @@ var matchCraft = {
             } else {
                 this.activePlayer = this.activePlayer.opponent;
             }
+            matchCraft.slideBoard();
         } else {
             this.activePlayer = this.player1;
         }
     },
-
+    
+    /**
+     * matchCraft.slideBoard
+     */
     slideBoard: function () {
         if (this.activePlayer == this.player2) {
             $("#card-area").addClass('player2');
         } else {
             $("#card-area").removeClass('player2');
         }
+    },
+    
+    /**
+     * matchCraft.reset
+     */
+    reset: function () {
+        this.numPlayers = 1;
+        this.player1 = null;
+        this.player2 = null;
+        this.activePlayer = null;
+    },
+
+    /**
+     * matchCraft.startGame
+     */
+    startGame: function () {
+        //make player1
+        matchCraft.player1 = new Player($("#p1-name").val(), $("input[name = p1-faction]:checked").val(), $("#p1-num-cards").val(), 1);
+        matchCraft.player1.opponent = matchCraft.player1;
+        matchCraft.player1.createBoard();
+
+        //if two players, make player2
+        if ($("input[name = number-of-players]:checked").val() == 2) {
+            matchCraft.numPlayers = 2;
+            matchCraft.player2 = new Player($("#p2-name").val(), $("input[name = p2-faction]:checked").val(), $("#p2-num-cards").val(), 2);
+            matchCraft.player2.opponent = matchCraft.player1;
+            matchCraft.player1.opponent = matchCraft.player2;
+            matchCraft.player2.createBoard();
+        }
     }
-
-
 };
 
-//CONSTRUCTOR FOR PLAYERS
+/**
+ * Player - constructor for Player objects
+ * @param name
+ * @param faction
+ * @param numCards
+ * @param playerNumber
+ * @returns {Player}
+ * @constructor
+ */
 function Player(name, faction, numCards, playerNumber) {
     this.name = name;
     this.faction = factions[faction];
@@ -51,22 +96,27 @@ function Player(name, faction, numCards, playerNumber) {
         this.board.prepCharacters();
         this.board.createCardObjs();
     };
-    
     return this;
 }
 
-//Player Method To Display Stats
+/**
+ * Player.displayStats
+ */
 Player.prototype.displayStats = function () {
     $("#games-played").text(this.games);
     $("#attempts").text(this.attempts);
     $("#accuracy").text(this.accuracy + "%");
 };
 
-//CONSTRUCTOR FOR GAME BOARD
+/**
+ * GameBoard - constructor for game board objects
+ * @param player
+ * @returns {GameBoard}
+ * @constructor
+ */
 function GameBoard(player) {
     this.player = player;
     this.characters = [];
-    this.cards = [];
     this.firstCard = null;
     this.secondCard = null;
     this.matches = 0;
@@ -75,7 +125,9 @@ function GameBoard(player) {
     return this;
 }
 
-//Game Board Method To Prep Characters
+/**
+ * GameBoard.prepCharacters
+ */
 GameBoard.prototype.prepCharacters = function () {
     var tempArray = [];
     for (var x in this.player.faction.characters) {
@@ -88,7 +140,11 @@ GameBoard.prototype.prepCharacters = function () {
     }
 };
 
-//Game Board Method To Generate DOM Objects
+/**
+ * GameBoard.createDOMObj
+ * @param character
+ * @returns {*|jQuery}
+ */
 GameBoard.prototype.createDOMObj = function (character) {
     var card = $("<div>").addClass('card');
     var front = $("<div>").addClass('front down');
@@ -103,7 +159,9 @@ GameBoard.prototype.createDOMObj = function (character) {
     return card;
 };
 
-//Game Board Method To Generate Cards
+/**
+ * GameBoard.createCardObjs
+ */
 GameBoard.prototype.createCardObjs = function () {
     for (var i = 0; i < this.player.numCards; i++) {
         //select random character from array of characters
@@ -124,7 +182,10 @@ GameBoard.prototype.createCardObjs = function () {
     }
 };
 
-//Game Board Method To Handle Clicks
+/**
+ * GameBoard.cardClicked
+ * @param card
+ */
 GameBoard.prototype.cardClicked = function (card) {
     var self = this;
     
@@ -139,7 +200,7 @@ GameBoard.prototype.cardClicked = function (card) {
             //if it is the second card clicked this round set it as such and...
         } else if (this.secondCard == null) {
             this.secondCard = card;
-
+            
             //check for match
             if (this.firstCard.character == this.secondCard.character) {
                 this.matches++;
@@ -152,10 +213,9 @@ GameBoard.prototype.cardClicked = function (card) {
                     setTimeout(function () {
                         $("#victory").show();
                     }, 750);
-                } 
-
+                }
+                
             } else {
-                matchCraft.setActivePlayer();
                 setTimeout(function () {
                     self.firstCard.flip();
                     self.secondCard.flip();
@@ -163,50 +223,31 @@ GameBoard.prototype.cardClicked = function (card) {
                     self.secondCard = null;
                 }, 1250);
                 setTimeout(function () {
-                    matchCraft.slideBoard();
+                    matchCraft.setActivePlayer();
                 }, 2150);
             }
         }
     }
 };
 
-//Game Board Method To Clear Cards
-GameBoard.prototype.clearCards = function () {
-    $("#game-area").html("<h1 id='victory'>Victory!!!</h1>");
-    this.numCards = [];
-};
+//TODO Re-introduce sounds (download sound files if possible)
 
-//Game Board Method To Reset Board
-GameBoard.prototype.reset = function () {
-    var board = $(this).data();
-    board.player.attempts = 0;
-    board.player.matches = 0;
-    board.player.accuracy = 0;
-    board.player.displayStats();
-    $("#victory").removeClass('victory');
-
-    //flip numCards back over
-    for (var i = 0; i < board.numCards.length; i++) {
-        if (board.numCards[i].state == 'up') {
-            board.numCards[i].flip();
-        }
-    }
-    
-    //reset board
-    setTimeout(function () {
-        board.clearCards();
-        board.createCardObjs(18);
-    }, 1000);
-};
-
-//Game Board Method To Set Volume
+/**
+ * GameBoard.setVolume
+ */
 GameBoard.prototype.setVolume = function () {
     $("#background_music_player").prop('volume', ($("#background-volume").val() / 100));
     $("#spell_player").prop('volume', ($("#spell-volume").val() / 100));
     $("#emote_player").prop('volume', ($("#emote-volume").val() / 100));
 };
 
-//CONSTRUCTOR FOR CARDS
+/**
+ * Card - constructor for card objects
+ * @param element
+ * @param character
+ * @param board
+ * @constructor
+ */
 function Card(element, character, board) {
     this.element = element;
     this.character = character;
@@ -214,7 +255,9 @@ function Card(element, character, board) {
     this.state = 'down';
 }
 
-//Card Method To Flip Cards
+/**
+ * Card.flip
+ */
 Card.prototype.flip = function () {
     $(this.element).find('div').toggleClass('down');
     
@@ -331,29 +374,45 @@ var factions = {
 
 //DOCUMENT READY FOR EVENT HANDLERS
 $(document).ready(function () {
-    $("#options-background").css('display', 'block');
+    $("#options-background").show();
     
     //click handler to start the game
     $("#start-game").click(function () {
+        matchCraft.reset();
+        
         //turn off Game Options dialog
-        $("#options-background").css('display', 'none');
+        $("#options-background").hide();
         
-        //make player1
-        matchCraft.player1 = new Player($("#p1-name").val(), $("input[name = p1-faction]:checked").val(), 18, 1);
-        matchCraft.player1.opponent = matchCraft.player1;
-        matchCraft.player1.createBoard();
-        
-        //if two players, make player2
-        if ($("input[name = number-of-players]:checked").val() == 2) {
-            matchCraft.numPlayers = 2;
-            matchCraft.player2 = new Player($("#p2-name").val(), $("input[name = p2-faction]:checked").val(), 18, 2);
-            matchCraft.player2.opponent = matchCraft.player1;
-            matchCraft.player1.opponent = matchCraft.player2;
-            matchCraft.player2.createBoard();
-        }
 
+        matchCraft.startGame();
         matchCraft.setActivePlayer();
-        matchCraft.slideBoard();
+    });
+    
+    //click handler for reset button
+    $("#restart").click(function () {
+        $("#victory").hide();
+        matchCraft.reset();
+        $('#player1-card-area, #player2-card-area').html('');
+        $("#options-background").show();
+    });
+
+    $("#replay").click(function () {
+        $("#victory").hide();
+
+        //flip numCards back over
+        $(".card").each(function () {
+            var card = $(this).data();
+            if (card.state == 'up'){
+                card.flip();
+            }
+        });
+
+        //reset board
+        setTimeout(function () {
+            $('#player1-card-area, #player2-card-area').html('');
+            matchCraft.startGame();
+            matchCraft.setActivePlayer();
+        }, 1000);
     });
     
     //click handlers for number of players radio buttons
@@ -368,26 +427,5 @@ $(document).ready(function () {
     });
     
     //TODO local storage
-
-// OLD /////////////////////////////////////////////
-    //things to do when the page loads
-    //set up game board
-    // var gameBoard = new GameBoard(1);
-    // gameBoard.createCardObjs(18);
-    // gameBoard.player.displayStats();
-    //start music
-    // gameBoard.setVolume();
-    // $("#background_music_player")[0].play();
-    //CLICK HANDLERS
-    // $("#game-area").on("click", ".card", gameBoard.cardClicked);
-    // $("#reset").click(gameBoard.reset);
-    // $(".slider").on("change", gameBoard.setVolume);
-    // $("#settings").click(function () {
-    //     $("#settings-background").addClass('settings-open');
-    // });
-    // $("#settings-window").find(".button").click(function () {
-    //     $("#settings-background").removeClass('settings-open');
-    // });
-// OLD ////////////////////////////////////////////
     
 });
