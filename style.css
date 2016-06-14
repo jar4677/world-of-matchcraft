@@ -253,7 +253,7 @@ audio {
 }
 
 .front, .back {
-    /*backface-visibility: hidden;*/
+    backface-visibility: hidden;
     transition-duration: .75s;
     transition-timing-function: linear;
 }
