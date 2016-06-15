@@ -27,6 +27,8 @@ var matchCraft = {
             } else {
                 this.activePlayer = this.activePlayer.opponent;
             }
+            $(this.activePlayer.nameDisplay).addClass('active-player');
+            $(this.activePlayer.opponent.nameDisplay).removeClass('active-player');
             matchCraft.slideBoard();
         } else {
             this.activePlayer = this.player1;
@@ -62,6 +64,7 @@ var matchCraft = {
         matchCraft.player1 = new Player($("#p1-name").val(), $("input[name = p1-faction]:checked").val(), $("#p1-num-cards").val(), 1);
         matchCraft.player1.opponent = matchCraft.player1;
         matchCraft.player1.createBoard();
+        $("#p1-name-display").text(matchCraft.player1.name);
 
         //if two players, make player2
         if ($("input[name = number-of-players]:checked").val() == 2) {
@@ -70,6 +73,7 @@ var matchCraft = {
             matchCraft.player2.opponent = matchCraft.player1;
             matchCraft.player1.opponent = matchCraft.player2;
             matchCraft.player2.createBoard();
+            $("#p2-name-display").text(matchCraft.player2.name);
         }
     }
 };
@@ -88,8 +92,14 @@ function Player(name, faction, numCards, playerNumber) {
     this.faction = factions[faction];
     this.numCards = numCards;
     this.playerNumber = 'player' + playerNumber;
+    this.nameDisplay = $('#p' + playerNumber + '-name-display');
     this.board = null;
     this.opponent = null;
+
+    if (!this.name) {
+        var index = Math.floor(Math.random() * this.faction.heroes.length);
+        this.name = this.faction.heroes[index];
+    }
     
     this.createBoard = function () {
         this.board = new GameBoard(this);
@@ -98,15 +108,6 @@ function Player(name, faction, numCards, playerNumber) {
     };
     return this;
 }
-
-/**
- * Player.displayStats
- */
-Player.prototype.displayStats = function () {
-    $("#games-played").text(this.games);
-    $("#attempts").text(this.attempts);
-    $("#accuracy").text(this.accuracy + "%");
-};
 
 /**
  * GameBoard - constructor for game board objects
@@ -268,10 +269,19 @@ Card.prototype.flip = function () {
     }
 };
 
+//TODO Get Alliance card faces
 //OBJECTS FOR ASSETS
 var factions = {
     horde: {
         name: 'horde',
+        heroes: [
+            'Thrall',
+            'Durotan',
+            'Garona',
+            'Draka',
+            'Orgrim',
+            'Sylvanas'
+        ],
         characters: {
             bayliana: {
                 name: 'bayliana',
@@ -322,6 +332,13 @@ var factions = {
     },
     alliance: {
         name: 'alliance',
+        heroes: [
+            'Varian',
+            'Muradin',
+            'Jaina',
+            'Tyrande',
+            'Velen'
+        ],
         characters: {
             bayliana: {
                 name: 'bayliana',
@@ -373,7 +390,7 @@ var factions = {
 };
 
 //DOCUMENT READY FOR EVENT HANDLERS
-$(document).ready(function () {
+$(document).ready(function ()   {
     $("#options-background").show();
     
     //click handler to start the game
@@ -382,7 +399,6 @@ $(document).ready(function () {
         
         //turn off Game Options dialog
         $("#options-background").hide();
-        
 
         matchCraft.startGame();
         matchCraft.setActivePlayer();
@@ -402,7 +418,7 @@ $(document).ready(function () {
         //flip numCards back over
         $(".card").each(function () {
             var card = $(this).data();
-            if (card.state == 'up'){
+            if (card.state == 'up') {
                 card.flip();
             }
         });
@@ -425,7 +441,4 @@ $(document).ready(function () {
         var card = $(this).data();
         card.board.cardClicked(card);
     });
-    
-    //TODO local storage
-    
 });
