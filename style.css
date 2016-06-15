@@ -17,7 +17,6 @@ body {
 
 /*Game Options Window*/
 #options-background {
-    /*display: none;*/
     position: fixed;
     top: 0;
     left: 0;
@@ -263,6 +262,40 @@ audio {
 }
 
 /*FOREGROUND LAYER*/
+#main-logo {
+    height: 250px;
+    position: relative;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#p1-name-display, #p2-name-display {
+    width: 178px;
+    position: absolute;
+    bottom: 13px;
+    font-size: 20px;
+    font-family: serif;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
+    transition-duration: 1s;
+}
+
+#p1-name-display {
+    left: 45px;
+}
+
+#p2-name-display {
+    right: 45px;
+}
+
+.active-player {
+    transform: scale(1.25);
+    color: antiquewhite;
+    /*background-color: #dcbf84;*/
+    text-shadow: 3px 3px 3px black;
+}
 
 .foreground-left, .foreground-right {
     height: 568px;
@@ -377,5 +410,5 @@ audio {
 /********** BACKGROUND COLOR **********/
 
 .background-layer, .foreground-left, .foreground-center-top, .foreground-right {
-    background-color: black;
+    background-color: #131313;
 }
