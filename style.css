@@ -17,7 +17,6 @@ body {
 
 /*Game Options Window*/
 #options-background {
-    /*display: none;*/
     position: fixed;
     top: 0;
     left: 0;
@@ -35,6 +34,7 @@ body {
     font-size: 20px;
     text-align: center;
     box-shadow: 8px 8px 16px black;
+    padding: 12px;
 }
 
 /*game options heading*/
@@ -43,7 +43,7 @@ body {
     margin: 20px 0;
 }
 
-#options-window h4 {
+#options-window h2 {
     margin: 14px 0;
 }
 
@@ -87,8 +87,8 @@ body {
 #players {
     width: 310px;
     position: absolute;
-    left: 80px;
-    top: 72px;
+    left: 100px;
+    top: 110px;
 }
 
 .p1 {
@@ -99,12 +99,22 @@ body {
     float: right;
 }
 
+.radio {
+    margin-left: 8px;
+}
+
 .name-input{
+    margin-left: 8px;
+    margin-bottom: 12px;
     font-size: 18px;
     font-family: serif;
     font-weight: bold;
+    text-align: center;
     color: #E4B75C;
-    background-color: #fffabe;
+    border: none;
+    border-bottom: 2px solid #E4B75C;
+    border-radius: 0;
+    background-color: #45260C;
 }
 
 .faction{
@@ -160,6 +170,7 @@ audio {
     background-color: #45260C;
     box-sizing: border-box;
     box-shadow: 4px 4px 4px black;
+    border-radius: 10px;
 }
 
 .button:hover {
@@ -179,10 +190,9 @@ audio {
 }
 
 #game-board-image {
-    height: 668px;
-    width: 1002px;
+    height: 568px;
     position: relative;
-    top: 160px;
+    top: 125px;
     left: 50%;
     transform: translateX(-50%);
     background: url("images/azeroth-map.jpg");
@@ -192,25 +202,25 @@ audio {
 }
 
 #card-area {
-    height: 668px;
-    width: 2004px;
+    height: 568px;
+    width: 1704px;
     position: absolute;
-    top: 160px;
+    top: 125px;
     transition-duration: 1.5s;
     transition-timing-function: cubic-bezier(0.6, 0.3, 0.5, 1.1);
 }
 
 .player1 {
-    left: calc(50% - 502px);
+    left: calc(50% - 426px);
 }
 
 .player2 {
-    left: calc(50% - 1505px);
+    left: calc(50% - 1278px);
 }
 
 #player1-card-area, #player2-card-area {
-    height: 668px;
-    width: 1002px;
+    height: 100%;
+    width: 50%;
     float: left;
     display: flex;
     flex-wrap: wrap;
@@ -221,8 +231,8 @@ audio {
 
 /****** CARDS ******/
 .card {
-    height: 189px;
-    width: 134px;
+    height: 150px;
+    width: 102px;
     margin: 10px;
     position: relative;
     border-radius: 5px;
@@ -233,7 +243,7 @@ audio {
 }
 
 .front img, .back img {
-    height: 190px;
+    height: 150px;
     position: absolute;
     top: 0;
     left: 0;
@@ -252,12 +262,46 @@ audio {
 }
 
 /*FOREGROUND LAYER*/
+#main-logo {
+    height: 250px;
+    position: relative;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#p1-name-display, #p2-name-display {
+    width: 178px;
+    position: absolute;
+    bottom: 13px;
+    font-size: 20px;
+    font-family: serif;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
+    transition-duration: 1s;
+}
+
+#p1-name-display {
+    left: 45px;
+}
+
+#p2-name-display {
+    right: 45px;
+}
+
+.active-player {
+    transform: scale(1.25);
+    color: antiquewhite;
+    /*background-color: #dcbf84;*/
+    text-shadow: 3px 3px 3px black;
+}
 
 .foreground-left, .foreground-right {
-    height: 668px;
-    width: calc(50% - 501px);
+    height: 568px;
+    width: calc(50% - 426px);
     position: fixed;
-    top: 160px;
+    top: 125px;
     box-sizing: border-box;
 }
 
@@ -270,21 +314,21 @@ audio {
 }
 
 .foreground-center-top {
-    height: 160px;
-    width: 1002px;
+    height: 125px;
+    width: 852px;
     position: fixed;
     top: 0;
-    left: calc(50% - 501px);
-    background-image: url("images/title.png");
+    left: calc(50% - 426px);
+    /*background-image: url("images/title.png");*/
     box-sizing: border-box;
 }
 
 .foreground-center-middle {
-    height: 668px;
-    width: 1002px;
+    height: 568px;
+    width: 852px;
     position: fixed;
     top: 160px;
-    left: calc(50% - 501px);
+    left: calc(50% - 426px);
     display: none;
 }
 
@@ -309,58 +353,62 @@ audio {
 }
 
 #replay {
+    position: absolute;
+    top: 15px;
     left: 40px;
 }
 
 #restart {
+    position: absolute;
+    top: 15px;
     right: 40px;
 }
 
 .foreground-center-bottom {
-    height: calc(100% - 828px);
-    width: 1002px;
+    height: calc(100% - 693px);
+    width: 852px;
     position: fixed;
-    top: 828px;
-    left: calc(50% - 501px);
+    top: 693px;
+    left: calc(50% - 426px);
     box-sizing: border-box;
 }
 
 /********** ART ASSET PLACEMENT **********/
 
 #left-crest {
-    height: 300px;
+    height: 200px;
     position: absolute;
-    top: -160px;
-    right: -25px;
+    top: -106px;
+    right: -47px;
     transform: rotateZ(-9deg);
     border-bottom-right-radius: 120px 185px;
 }
 
 #right-crest {
-    height: 269px;
+    height: 165px;
     position: absolute;
-    top: -154px;
-    left: -17px;
+    top: -91px;
+    left: -26px;
     transform: rotateZ(9deg);
     border-bottom-left-radius: 75px 106px;
 }
 
 #left-hero {
-    width: 420px;
+    width: 221px;
     position: absolute;
-    right: -5px;
-    bottom: calc((100vh - 828px) * -1);
+    right: -30px;
+    bottom: calc((100vh - 693px) * -1);
 }
 
 #right-hero {
-    width: 325px;
+    width: 170px;
     position: absolute;
-    left: 15px;
-    bottom: calc((100vh - 828px) * -1);
+    bottom: calc((100vh - 693px) * -1);
+    left: -20px;
 }
 
 /********** BACKGROUND COLOR **********/
 
 .background-layer, .foreground-left, .foreground-center-top, .foreground-right {
-    background-color: #45260C;
+    background-color: #131313;
 }
