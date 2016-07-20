@@ -273,7 +273,7 @@ Card.prototype.flip = function () {
 //OBJECTS FOR ASSETS
 var factions = {
     horde: {
-        name: 'horde',
+        name: 'Horde',
         heroes: [
             'Thrall',
             'Durotan',
@@ -284,54 +284,63 @@ var factions = {
         ],
         characters: {
             bayliana: {
-                name: 'bayliana',
+                name: 'Bayliana',
                 emote: "http://wow.zamimg.com/wowsounds/539260",
-                spell: "http://wow.zamimg.com/wowsounds/569763"
+                spell: "http://wow.zamimg.com/wowsounds/569763",
+                class: "Paladin"
             },
             kiggo: {
-                name: 'kiggo',
+                name: 'Kiggo',
                 emote: "http://wow.zamimg.com/wowsounds/541435",
-                spell: "http://wow.zamimg.com/wowsounds/568524"
+                spell: "http://wow.zamimg.com/wowsounds/568524",
+                class: "Warrior"
             },
             morit: {
-                name: 'morit',
+                name: 'Morit',
                 emote: "http://wow.zamimg.com/wowsounds/542787",
-                spell: "http://wow.zamimg.com/wowsounds/569138"
+                spell: "http://wow.zamimg.com/wowsounds/569138",
+                class: "Priest"
             },
             eijaal: {
-                name: 'eijaal',
+                name: 'Eijaal',
                 emote: "http://wow.zamimg.com/wowsounds/543040",
-                spell: "http://wow.zamimg.com/wowsounds/569357"
+                spell: "http://wow.zamimg.com/wowsounds/569357",
+                class: "Druid"
             },
             kachall: {
-                name: 'kachall',
+                name: 'Kachall',
                 emote: "http://wow.zamimg.com/wowsounds/541404",
-                spell: "http://wow.zamimg.com/wowsounds/568049"
+                spell: "http://wow.zamimg.com/wowsounds/568049",
+                class: "Shaman"
             },
             xail: {
-                name: 'xail',
+                name: 'Xail',
                 emote: "http://wow.zamimg.com/wowsounds/539166",
-                spell: "http://wow.zamimg.com/wowsounds/568585"
+                spell: "http://wow.zamimg.com/wowsounds/568585",
+                class: "Mage"
             },
             kiggar: {
-                name: 'kiggar',
+                name: 'Kiggar',
                 emote: "http://wow.zamimg.com/wowsounds/541389",
-                spell: "http://wow.zamimg.com/wowsounds/569423"
+                spell: "http://wow.zamimg.com/wowsounds/569423",
+                class: "Rogue"
             },
             meltheir: {
-                name: 'meltheir',
+                name: 'Meltheir',
                 emote: "http://wow.zamimg.com/wowsounds/539228",
-                spell: "http://wow.zamimg.com/wowsounds/569675"
+                spell: "http://wow.zamimg.com/wowsounds/569675",
+                class: "Hunter"
             },
             kashu: {
-                name: 'kashu',
+                name: 'Kashu',
                 emote: "http://wow.zamimg.com/wowsounds/541391",
-                spell: "http://wow.zamimg.com/wowsounds/569079"
+                spell: "http://wow.zamimg.com/wowsounds/569079",
+                class: "Warlock"
             }
         }
     },
     alliance: {
-        name: 'alliance',
+        name: 'Alliance',
         heroes: [
             'Varian',
             'Muradin',
@@ -341,49 +350,58 @@ var factions = {
         ],
         characters: {
             bayliana: {
-                name: 'bayliana',
+                name: 'Bayliana',
                 emote: "http://wow.zamimg.com/wowsounds/539260",
-                spell: "http://wow.zamimg.com/wowsounds/569763"
+                spell: "http://wow.zamimg.com/wowsounds/569763",
+                class: "Paladin"
             },
             kiggo: {
-                name: 'kiggo',
+                name: 'Kiggo',
                 emote: "http://wow.zamimg.com/wowsounds/541435",
-                spell: "http://wow.zamimg.com/wowsounds/568524"
+                spell: "http://wow.zamimg.com/wowsounds/568524",
+                class: "Warrior"
             },
             morit: {
-                name: 'morit',
+                name: 'Morit',
                 emote: "http://wow.zamimg.com/wowsounds/542787",
-                spell: "http://wow.zamimg.com/wowsounds/569138"
+                spell: "http://wow.zamimg.com/wowsounds/569138",
+                class: "Priest"
             },
             eijaal: {
-                name: 'eijaal',
+                name: 'Eijaal',
                 emote: "http://wow.zamimg.com/wowsounds/543040",
-                spell: "http://wow.zamimg.com/wowsounds/569357"
+                spell: "http://wow.zamimg.com/wowsounds/569357",
+                class: "Druid"
             },
             kachall: {
-                name: 'kachall',
+                name: 'Kachall',
                 emote: "http://wow.zamimg.com/wowsounds/541404",
-                spell: "http://wow.zamimg.com/wowsounds/568049"
+                spell: "http://wow.zamimg.com/wowsounds/568049",
+                class: "Shaman"
             },
             xail: {
-                name: 'xail',
+                name: 'Xail',
                 emote: "http://wow.zamimg.com/wowsounds/539166",
-                spell: "http://wow.zamimg.com/wowsounds/568585"
+                spell: "http://wow.zamimg.com/wowsounds/568585",
+                class: "Mage"
             },
             kiggar: {
-                name: 'kiggar',
+                name: 'Kiggar',
                 emote: "http://wow.zamimg.com/wowsounds/541389",
-                spell: "http://wow.zamimg.com/wowsounds/569423"
+                spell: "http://wow.zamimg.com/wowsounds/569423",
+                class: "Rogue"
             },
             meltheir: {
-                name: 'meltheir',
+                name: 'Meltheir',
                 emote: "http://wow.zamimg.com/wowsounds/539228",
-                spell: "http://wow.zamimg.com/wowsounds/569675"
+                spell: "http://wow.zamimg.com/wowsounds/569675",
+                class: "Hunter"
             },
             kashu: {
-                name: 'kashu',
+                name: 'Kashu',
                 emote: "http://wow.zamimg.com/wowsounds/541391",
-                spell: "http://wow.zamimg.com/wowsounds/569079"
+                spell: "http://wow.zamimg.com/wowsounds/569079",
+                class: "Warlock"
             }
         }
     }

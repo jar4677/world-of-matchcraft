@@ -8,130 +8,150 @@
     <script src="script.js"></script>
 </head>
 <body>
-
-<div class="background-layer">
-    <img id="game-board-image" src="images/azeroth-map.jpg">
-    <div id="card-area" class="player1">
-        <div id="player1-card-area"></div>
-        <div id="player2-card-area"></div>
-    </div>
-</div>
-
-<div class="foreground-center-top">
-    <div class="button" id="replay" title="Start this game over">Replay</div>
-    <h1 id="p1-name-display"></h1>
-    <img id="main-logo" src="images/worldofmatchcraft.png" alt="World of Matchcraft">
-    <h1 id="p2-name-display"></h1>
-    <div class="button" id="restart" title="Start a new game">Restart</div>
-</div>
-<div class="foreground-center-middle" id="victory">
-    <div class="victory-background"></div>
-    <img src="images/victory.png" alt="victory">
-</div>
-<div class="foreground-center-bottom"></div>
-<div class="foreground-left">
-    <img src="images/horde-crest.png" alt="horde-crest" id="left-crest">
-    <img src="images/thrall.png" alt="thrall" id="left-hero">
-</div>
-<div class="foreground-right">
-    <img src="images/alliance-crest.png" alt="alliance-crest" id="right-crest">
-    <img src="images/varian.png" alt="varian" id="right-hero">
-</div>
-
-<!--Game Options-->
-<div id="options-background">
-    <div id="options-window">
-        <div id="game-options">
-            <h2>Game Options</h2>
-            <h5>How many players?
-                <input type="radio" class="radio" name="number-of-players" id="one-player" value="1" checked>
-                <label for="one-player">1</label>
-                <input type="radio" class="radio" name="number-of-players" id="two-player" value="2">
-                <label for="two-player">2</label>
-            </h5>
-        </div>
-        <div id="player-options">
-            <div id="p1-options">
-                <input type="text" id="p1-name" placeholder="Enter your name" class="name-input" autofocus><br>
-                <h4>Select your Faction</h4>
-                <div class="faction">
-                    <label for="p1-faction-horde"><img src="images/horde-crest.png" alt="horde"
-                                                       class="faction-selection-img"><p>Horde</p></label>
-                    <input type="radio" class="radio" name="p1-faction" id="p1-faction-horde" value="horde" checked>
-                </div>
-                <div class="faction">
-                    <label for="p1-faction-alliance"><img src="images/alliance-crest.png" alt="alliance"
-                                                          class="faction-selection-img"><p>Alliance</p></label>
-                    <input type="radio" class="radio" name="p1-faction" id="p1-faction-alliance" value="alliance">
-                </div>
-                <label for="p1-num-cards">How many cards?</label>
-                <select class="num-cards" name="p1-num-cards" id="p1-num-cards">
-                    <option value="18">18</option>
-                    <option value="16">16</option>
-                    <option value="14">14</option>
-                    <option value="12">12</option>
-                    <option value="10">10</option>
-                </select>
-            </div>
-            <div id="p2-options">
-                <div id="players">
-                    <h4 class="p1">Player 1</h4>
-                    <h4 class="p2">Player 2</h4>
-                </div>
-                <input type="text" id="p2-name" placeholder="Enter your name" class="name-input"><br>
-                <h4>Select your Faction</h4>
-                <div class="faction">
-                    <label for="p2-faction-horde"><img src="images/horde-crest.png" alt="horde"
-                                                       class="faction-selection-img"><p>Horde</p></label>
-                    <input type="radio" class="radio" name="p2-faction" id="p2-faction-horde" value="horde">
-                </div>
-                <div class="faction">
-                    <label for="p2-faction-alliance"><img src="images/alliance-crest.png" alt="alliance"
-                                                          class="faction-selection-img"><p>Alliance</p></label>
-                    <input type="radio" class="radio" name="p2-faction" id="p2-faction-alliance" value="alliance" checked>
-                </div>
-                <label for="p2-num-cards">How many cards?</label>
-                <select class="num-cards" name="p2-num-cards" id="p2-num-cards">
-                    <option value="18">18</option>
-                    <option value="16">16</option>
-                    <option value="14">14</option>
-                    <option value="12">12</option>
-                    <option value="10">10</option>
-                </select>
+    <div id="game">
+        <div class="background-layer">
+            <img id="game-board-image" src="images/azeroth-map.jpg">
+            <div id="card-area" class="player1">
+                <div id="player1-card-area"></div>
+                <div id="player2-card-area"></div>
             </div>
         </div>
-        <div id="start-game" class="button">Begin!</div>
+
+        <div class="foreground-center-top">
+            <div class="button" id="replay" title="Start this game over">Replay</div>
+            <h1 id="p1-name-display"></h1>
+            <img id="main-logo" src="images/worldofmatchcraft.png" alt="World of Matchcraft">
+            <h1 id="p2-name-display"></h1>
+            <div class="button" id="restart" title="Start a new game">Restart</div>
+        </div>
+        <div class="foreground-center-middle" id="victory">
+            <div class="victory-background"></div>
+            <img src="images/victory.png" alt="victory">
+        </div>
+        <div class="foreground-center-bottom"></div>
+        <div class="foreground-left">
+            <img src="images/horde-crest.png" alt="horde-crest" id="left-crest">
+            <img src="images/thrall.png" alt="thrall" id="left-hero">
+        </div>
+        <div class="foreground-right">
+            <img src="images/alliance-crest.png" alt="alliance-crest" id="right-crest">
+            <img src="images/varian.png" alt="varian" id="right-hero">
+        </div>
+
+        <!--Game Options-->
+        <div id="options-background">
+            <div id="options-window">
+                <div id="game-options">
+                    <h2>Game Options</h2>
+                    <h5>How many players?
+                        <input type="radio" class="radio" name="number-of-players" id="one-player" value="1" checked>
+                        <label for="one-player">1</label>
+                        <input type="radio" class="radio" name="number-of-players" id="two-player" value="2">
+                        <label for="two-player">2</label>
+                    </h5>
+                </div>
+                <div id="player-options">
+                    <div id="p1-options">
+                        <input type="text" id="p1-name" placeholder="Enter your name" class="name-input" autofocus><br>
+                        <h4>Select your Faction</h4>
+                        <div class="faction">
+                            <label for="p1-faction-horde"><img src="images/horde-crest.png" alt="horde"
+                                                               class="faction-selection-img">
+                                <p>Horde</p></label>
+                            <input type="radio" class="radio" name="p1-faction" id="p1-faction-horde" value="horde"
+                                   checked>
+                        </div>
+                        <div class="faction">
+                            <label for="p1-faction-alliance"><img src="images/alliance-crest.png" alt="alliance"
+                                                                  class="faction-selection-img">
+                                <p>Alliance</p></label>
+                            <input type="radio" class="radio" name="p1-faction" id="p1-faction-alliance"
+                                   value="alliance">
+                        </div>
+                        <label for="p1-num-cards">How many cards?</label>
+                        <select class="num-cards" name="p1-num-cards" id="p1-num-cards">
+                            <option value="18">18</option>
+                            <option value="16">16</option>
+                            <option value="14">14</option>
+                            <option value="12">12</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                    <div id="p2-options">
+                        <div id="players">
+                            <h4 class="p1">Player 1</h4>
+                            <h4 class="p2">Player 2</h4>
+                        </div>
+                        <input type="text" id="p2-name" placeholder="Enter your name" class="name-input"><br>
+                        <h4>Select your Faction</h4>
+                        <div class="faction">
+                            <label for="p2-faction-horde"><img src="images/horde-crest.png" alt="horde"
+                                                               class="faction-selection-img">
+                                <p>Horde</p></label>
+                            <input type="radio" class="radio" name="p2-faction" id="p2-faction-horde" value="horde">
+                        </div>
+                        <div class="faction">
+                            <label for="p2-faction-alliance"><img src="images/alliance-crest.png" alt="alliance"
+                                                                  class="faction-selection-img">
+                                <p>Alliance</p></label>
+                            <input type="radio" class="radio" name="p2-faction" id="p2-faction-alliance"
+                                   value="alliance"
+                                   checked>
+                        </div>
+                        <label for="p2-num-cards">How many cards?</label>
+                        <select class="num-cards" name="p2-num-cards" id="p2-num-cards">
+                            <option value="18">18</option>
+                            <option value="16">16</option>
+                            <option value="14">14</option>
+                            <option value="12">12</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="start-game" class="button">Begin!</div>
+            </div>
+        </div>
+
+        <!--Settings-->
+        <div id="settings-background">
+            <div id="settings-window">
+                <h3>Game Settings</h3><br>
+                <label for="background-volume">Background Music Volume</label><br>
+                <input type="range" class="slider" id="background-volume"><br>
+                <span class="mute" id="background-mute"></span>
+                <label for="background-mute">Mute</label><br>
+                <audio src="http://wow.zamimg.com/wowsounds/53198" controls id="background_music_player" loop></audio>
+                <br>
+
+                <label for="spell-volume">Spell Effect Volume</label><br>
+                <input type="range" class="slider" id="spell-volume"><br>
+                <input type="checkbox" data-role="flipswitch" class="mute" id="spell-mute">
+                <label for="spell-mute">Mute</label><br>
+                <audio controls id="spell_player"></audio>
+                <br>
+
+                <label for="emote-volume">Emote Effect Volume</label><br>
+                <input type="range" class="slider" id="emote-volume"><br>
+                <input type="checkbox" data-role="flipswitch" class="mute" id="emote-mute">
+                <label for="emote-mute">Mute</label><br>
+                <audio controls id="emote_player"></audio>
+                <br>
+
+                <h4 class="button" id="close">Close</h4>
+            </div>
+        </div>
     </div>
-</div>
-
-<!--Settings-->
-<div id="settings-background">
-    <div id="settings-window">
-        <h3>Game Settings</h3><br>
-        <label for="background-volume">Background Music Volume</label><br>
-        <input type="range" class="slider" id="background-volume"><br>
-        <span class="mute" id="background-mute"></span>
-        <label for="background-mute">Mute</label><br>
-        <audio src="http://wow.zamimg.com/wowsounds/53198" controls id="background_music_player" loop></audio>
-        <br>
-
-        <label for="spell-volume">Spell Effect Volume</label><br>
-        <input type="range" class="slider" id="spell-volume"><br>
-        <input type="checkbox" data-role="flipswitch" class="mute" id="spell-mute">
-        <label for="spell-mute">Mute</label><br>
-        <audio controls id="spell_player"></audio>
-        <br>
-
-        <label for="emote-volume">Emote Effect Volume</label><br>
-        <input type="range" class="slider" id="emote-volume"><br>
-        <input type="checkbox" data-role="flipswitch" class="mute" id="emote-mute">
-        <label for="emote-mute">Mute</label><br>
-        <audio controls id="emote_player"></audio>
-        <br>
-
-        <h4 class="button" id="close">Close</h4>
+    <div id="message">
+        <img id="message-logo" src="images/worldofmatchcraft.png" alt="World of Matchcraft">
+        <div id="message-text">
+            <h1>Thank you for visiting!</h1>
+            <h3>World of Matchcraft is optimized for devices with resolutions of:</h3>
+            <h2>Width: 1090px</h2>
+            <h2>Height: 700px</h2>
+            <h3>or greater.</h3>
+            <br>
+            <p>Please visit my <a class="portfolio-link" href="http://jonrasmussen.me" target="_blank">portfolio</a>!</p><br>
+        </div>
     </div>
-</div>
-
 </body>
 </html>

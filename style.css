@@ -6,7 +6,7 @@
 
 body {
     box-sizing: border-box;
-    background-color: black;
+    background-color: #131313;
     color: #E4B75C;
     font-family: serif;
 }
@@ -412,4 +412,46 @@ audio {
 
 .background-layer, .foreground-left, .foreground-center-top, .foreground-right {
     background-color: #131313;
+}
+
+
+#message {
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    text-align: center;
+}
+
+#message-logo {
+    position: relative;
+    width: 80%;
+}
+
+#message-text {
+    width: 635px;
+    font-size: 2em;
+    position: relative;
+    left: 50%;
+    top: -8%;
+    transform: translateX(-50%);
+}
+
+.portfolio-link {
+    color: inherit;
+    cursor: pointer;
+}
+
+.portfolio-link:hover {
+    color: #D8C59E;
+}
+
+/*Style sheet for mobile*/
+@media screen and (max-width: 1089px){
+    #game {
+        display: none;
+    }
+
+    #message {
+        display: block;
+    }
 }
