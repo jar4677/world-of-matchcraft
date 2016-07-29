@@ -132,7 +132,6 @@ function GameBoard(player) {
 GameBoard.prototype.prepCharacters = function () {
     var tempArray = [];
     for (var x in this.player.faction.characters) {
-        console.log(this.player.faction.characters[x]);
         tempArray.push(this.player.faction.characters[x]);
     }
     for (var i = 0; i < (this.player.numCards / 2); i++) {
