@@ -132,7 +132,8 @@ function GameBoard(player) {
 GameBoard.prototype.prepCharacters = function () {
     var tempArray = [];
     for (var x in this.player.faction.characters) {
-        tempArray.push(x);
+        console.log(this.player.faction.characters[x]);
+        tempArray.push(this.player.faction.characters[x]);
     }
     for (var i = 0; i < (this.player.numCards / 2); i++) {
         var index = Math.floor((Math.random() * tempArray.length - 1) + 1);
@@ -149,7 +150,7 @@ GameBoard.prototype.prepCharacters = function () {
 GameBoard.prototype.createDOMObj = function (character) {
     var card = $("<div>").addClass('card');
     var front = $("<div>").addClass('front down');
-    var frontImg = $("<img>").attr('src', "images/" + character + ".jpg");
+    var frontImg = $("<img>").attr('src', "images/" + character.name.toLowerCase() + ".jpg");
     var back = $("<div>").addClass('back');
     var backImg = $("<img>").attr('src', "images/" + this.player.faction.name + "-back.jpg");
     
@@ -198,6 +199,8 @@ GameBoard.prototype.cardClicked = function (card) {
         //if it is the first card clicked this round set it as such
         if (this.firstCard == null) {
             this.firstCard = card;
+            console.log(card);
+            $("#spell_player").attr('src', card.character.spell).trigger("play");
             //if it is the second card clicked this round set it as such and...
         } else if (this.secondCard == null) {
             this.secondCard = card;
@@ -205,7 +208,8 @@ GameBoard.prototype.cardClicked = function (card) {
             //check for match
             if (this.firstCard.character == this.secondCard.character) {
                 this.matches++;
-                
+
+                $("#emote_player").attr('src', card.character.emote).trigger("play");
                 this.firstCard = null;
                 this.secondCard = null;
                 
@@ -217,6 +221,7 @@ GameBoard.prototype.cardClicked = function (card) {
                 }
                 
             } else {
+                $("#spell_player").attr('src', card.character.spell).trigger("play");
                 setTimeout(function () {
                     self.firstCard.flip();
                     self.secondCard.flip();
@@ -230,8 +235,6 @@ GameBoard.prototype.cardClicked = function (card) {
         }
     }
 };
-
-//TODO Re-introduce sounds (download sound files if possible)
 
 /**
  * GameBoard.setVolume
@@ -282,62 +285,62 @@ var factions = {
             'Orgrim',
             'Sylvanas'
         ],
-        characters: {
-            bayliana: {
+        characters: [
+            {
                 name: 'Bayliana',
                 emote: "http://wow.zamimg.com/wowsounds/539260",
                 spell: "http://wow.zamimg.com/wowsounds/569763",
                 class: "Paladin"
             },
-            kiggo: {
+            {
                 name: 'Kiggo',
                 emote: "http://wow.zamimg.com/wowsounds/541435",
                 spell: "http://wow.zamimg.com/wowsounds/568524",
                 class: "Warrior"
             },
-            morit: {
+            {
                 name: 'Morit',
                 emote: "http://wow.zamimg.com/wowsounds/542787",
                 spell: "http://wow.zamimg.com/wowsounds/569138",
                 class: "Priest"
             },
-            eijaal: {
+            {
                 name: 'Eijaal',
                 emote: "http://wow.zamimg.com/wowsounds/543040",
                 spell: "http://wow.zamimg.com/wowsounds/569357",
                 class: "Druid"
             },
-            kachall: {
+            {
                 name: 'Kachall',
                 emote: "http://wow.zamimg.com/wowsounds/541404",
                 spell: "http://wow.zamimg.com/wowsounds/568049",
                 class: "Shaman"
             },
-            xail: {
+            {
                 name: 'Xail',
                 emote: "http://wow.zamimg.com/wowsounds/539166",
                 spell: "http://wow.zamimg.com/wowsounds/568585",
                 class: "Mage"
             },
-            kiggar: {
+            {
                 name: 'Kiggar',
                 emote: "http://wow.zamimg.com/wowsounds/541389",
                 spell: "http://wow.zamimg.com/wowsounds/569423",
                 class: "Rogue"
             },
-            meltheir: {
+            {
                 name: 'Meltheir',
                 emote: "http://wow.zamimg.com/wowsounds/539228",
                 spell: "http://wow.zamimg.com/wowsounds/569675",
                 class: "Hunter"
             },
-            kashu: {
+            {
                 name: 'Kashu',
                 emote: "http://wow.zamimg.com/wowsounds/541391",
                 spell: "http://wow.zamimg.com/wowsounds/569079",
                 class: "Warlock"
             }
-        }
+        ]
     },
     alliance: {
         name: 'Alliance',
@@ -348,62 +351,62 @@ var factions = {
             'Tyrande',
             'Velen'
         ],
-        characters: {
-            bayliana: {
+        characters: [
+            {
                 name: 'Bayliana',
                 emote: "http://wow.zamimg.com/wowsounds/539260",
                 spell: "http://wow.zamimg.com/wowsounds/569763",
                 class: "Paladin"
             },
-            kiggo: {
+            {
                 name: 'Kiggo',
                 emote: "http://wow.zamimg.com/wowsounds/541435",
                 spell: "http://wow.zamimg.com/wowsounds/568524",
                 class: "Warrior"
             },
-            morit: {
+            {
                 name: 'Morit',
                 emote: "http://wow.zamimg.com/wowsounds/542787",
                 spell: "http://wow.zamimg.com/wowsounds/569138",
                 class: "Priest"
             },
-            eijaal: {
+            {
                 name: 'Eijaal',
                 emote: "http://wow.zamimg.com/wowsounds/543040",
                 spell: "http://wow.zamimg.com/wowsounds/569357",
                 class: "Druid"
             },
-            kachall: {
+            {
                 name: 'Kachall',
                 emote: "http://wow.zamimg.com/wowsounds/541404",
                 spell: "http://wow.zamimg.com/wowsounds/568049",
                 class: "Shaman"
             },
-            xail: {
+            {
                 name: 'Xail',
                 emote: "http://wow.zamimg.com/wowsounds/539166",
                 spell: "http://wow.zamimg.com/wowsounds/568585",
                 class: "Mage"
             },
-            kiggar: {
+            {
                 name: 'Kiggar',
                 emote: "http://wow.zamimg.com/wowsounds/541389",
                 spell: "http://wow.zamimg.com/wowsounds/569423",
                 class: "Rogue"
             },
-            meltheir: {
+            {
                 name: 'Meltheir',
                 emote: "http://wow.zamimg.com/wowsounds/539228",
                 spell: "http://wow.zamimg.com/wowsounds/569675",
                 class: "Hunter"
             },
-            kashu: {
+            {
                 name: 'Kashu',
                 emote: "http://wow.zamimg.com/wowsounds/541391",
                 spell: "http://wow.zamimg.com/wowsounds/569079",
                 class: "Warlock"
             }
-        }
+        ]
     }
 };
 

@@ -236,6 +236,7 @@ audio {
     margin: 10px;
     position: relative;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .card:hover {
@@ -328,7 +329,7 @@ audio {
     height: 568px;
     width: 852px;
     position: fixed;
-    top: 160px;
+    top: 125px;
     left: calc(50% - 426px);
     display: none;
 }
