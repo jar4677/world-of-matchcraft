@@ -199,7 +199,6 @@ GameBoard.prototype.cardClicked = function (card) {
         //if it is the first card clicked this round set it as such
         if (this.firstCard == null) {
             this.firstCard = card;
-            console.log(card);
             $("#spell_player").attr('src', card.character.spell).trigger("play");
             //if it is the second card clicked this round set it as such and...
         } else if (this.secondCard == null) {
