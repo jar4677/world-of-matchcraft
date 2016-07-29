@@ -152,7 +152,7 @@ GameBoard.prototype.createDOMObj = function (character) {
     var front = $("<div>").addClass('front down');
     var frontImg = $("<img>").attr('src', "images/" + character.name.toLowerCase() + ".jpg");
     var back = $("<div>").addClass('back');
-    var backImg = $("<img>").attr('src', "images/" + this.player.faction.name + "-back.jpg");
+    var backImg = $("<img>").attr('src', "images/" + this.player.faction.name.toLowerCase() + "-back.jpg");
     
     $(front).append(frontImg);
     $(back).append(backImg);
