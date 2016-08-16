@@ -88,7 +88,7 @@ body {
     width: 310px;
     position: absolute;
     left: 100px;
-    top: 110px;
+    top: 95px;
 }
 
 .p1 {
@@ -332,6 +332,35 @@ audio {
     top: 125px;
     left: calc(50% - 426px);
     display: none;
+}
+
+.health-bar {
+    height: 20px;
+    width: 300px;
+    position: absolute;
+    top: 25px;
+    border: 2px solid grey;
+    display: none;
+    background-color: lightgrey;
+}
+
+.health {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: red;
+}
+
+#p1-health {
+    left: 50px;
+}
+
+#p2-health {
+    right: 50px;
+}
+
+#p2-health .health{
+    right: 0;
 }
 
 .victory-background {

@@ -74,6 +74,7 @@ var matchCraft = {
             matchCraft.player1.opponent = matchCraft.player2;
             matchCraft.player2.createBoard();
             $("#p2-name-display").text(matchCraft.player2.name);
+            $(".health-bar").show();
         }
     }
 };
@@ -93,8 +94,10 @@ function Player(name, faction, numCards, playerNumber) {
     this.numCards = numCards;
     this.playerNumber = 'player' + playerNumber;
     this.nameDisplay = $('#p' + playerNumber + '-name-display');
+    this.healthBar = $('#p' + playerNumber + '-health .health');
     this.board = null;
     this.opponent = null;
+    this.health = 100;
 
     if (!this.name) {
         var index = Math.floor(Math.random() * this.faction.heroes.length);
@@ -106,6 +109,16 @@ function Player(name, faction, numCards, playerNumber) {
         this.board.prepCharacters();
         this.board.createCardObjs();
     };
+    
+    this.hitOpponent = function () {
+        this.opponent.hitByOpponent(Math.floor(this.board.matches / this.board.possibleMatches));
+    };
+    
+    this.hitByOpponent = function (percentage) {
+        this.health = percentage;
+        this.healthBar.attr('width', this.health + "%");
+    };
+    
     return this;
 }
 
@@ -179,7 +192,6 @@ GameBoard.prototype.createCardObjs = function () {
         // this.cards[i] = new Card(domObj, character, this);
         var card = new Card(domObj, character, this);
         $(domObj).data(card);
-        
     }
 };
 
@@ -206,6 +218,12 @@ GameBoard.prototype.cardClicked = function (card) {
             //check for match
             if (this.firstCard.character == this.secondCard.character) {
                 this.matches++;
+                console.log("matched");
+                console.log()
+                if(matchCraft.numPlayers == 2){
+                    this.player.hitOpponent();
+                    console.log("hit opponent");
+                }
 
                 $("#emote_player").attr('src', card.character.emote).trigger("play");
                 this.firstCard = null;
